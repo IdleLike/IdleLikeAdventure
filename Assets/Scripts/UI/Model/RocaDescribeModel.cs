@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreateCharacterPanel : MonoBehaviour
+namespace UI.Model
 {
+    public class RocaDescribeModel
+    {
 
+
+    }
 
 }
