@@ -89,16 +89,16 @@ namespace SUIFW
         /// 2: 根据不同的UI窗体的“显示模式”，分别作不同的加载处理
         /// </summary>
         /// <param name="uiFormName">UI窗体预设的名称</param>
-	    public void ShowUIForms(string uiFormName)
+        public BaseUIForm ShowUIForms(string uiFormName)
         {
             BaseUIForm baseUIForms=null;                    //UI窗体基类
 
             //参数的检查
-            if (string.IsNullOrEmpty(uiFormName)) return;
+            if (string.IsNullOrEmpty(uiFormName)) return null;
 
             //根据UI窗体的名称，加载到“所有UI窗体”缓存集合中
             baseUIForms = LoadFormsToAllUIFormsCatch(uiFormName);
-            if (baseUIForms == null) return;
+            if (baseUIForms == null) return null;
 
             //是否清空“栈集合”中得数据
             if (baseUIForms.CurrentUIType.IsClearStack)
@@ -122,6 +122,8 @@ namespace SUIFW
                 default:
                     break;
             }
+
+            return baseUIForms;
         }
 
         /// <summary>

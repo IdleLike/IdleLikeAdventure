@@ -11,3 +11,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1353c24926d8a474abcf67e9ead78e2a, type: 3}
   m_Name: TestData
   m_EditorClassIdentifier: 
+  CareerDatas: []
+  CareerAbilityDatas: []
+  LevelDatas: []
+  MultilingualDatas: []
+  RaceAbilityDatas:
+  - ID: 10001
+    AbilityName: "\u5927\u5409\u5927\u5229"
+    AbilityDescribe: "\u5403\u9E21"
+  - ID: 10002
+    AbilityName: "\u5927\u5403\u516B\u65B9"
+    AbilityDescribe: "\u5403\u8D27"
+  RaceDatas:
+  - ID: 10001
+    Name: "\u4EBA\u7C7B"
+    Describe: "\u4EBA\u7C7B\u4EBA\u7C7B\u4EBA\u7C7B\u4EBA\u7C7B"
+    InitHP: 11
+    InitPow: 11
+    InitDex: 11
+    InitCon: 11
+    HPGrowth: 11
+    PowGrowth: 11
+    DexGrowth: 11
+    ConGrowth: 11
+    AbilityOneID: 10001
+    AbilityTwoID: 10002
+  - ID: 10002
+    Name: "\u4F8F\u5112"
+    Describe: "\u4F8F\u5112\u4F8F\u5112\u4F8F\u5112"
+    InitHP: 33
+    InitPow: 33
+    InitDex: 33
+    InitCon: 33
+    HPGrowth: 33
+    PowGrowth: 33
+    DexGrowth: 33
+    ConGrowth: 33
+    AbilityOneID: 10001
+    AbilityTwoID: 10002
+  - ID: 10003
+    Name: "\u7CBE\u7075"
+    Describe: "\u7CBE\u7075\u7CBE\u7075\u7CBE\u7075"
+    InitHP: 12
+    InitPow: 22
+    InitDex: 22
+    InitCon: 22
+    HPGrowth: 22
+    PowGrowth: 22
+    DexGrowth: 22
+    ConGrowth: 22
+    AbilityOneID: 10001
+    AbilityTwoID: 10002

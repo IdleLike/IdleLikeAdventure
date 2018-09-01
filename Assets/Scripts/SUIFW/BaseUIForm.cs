@@ -107,15 +107,17 @@ namespace SUIFW
             }	    
         }
 
+
         /// <summary>
         /// 打开UI窗体
         /// </summary>
         /// <param name="uiFormName"></param>
-        protected void OpenUIForm(string uiFormName, params object[] args)
-	    {
-            if (args != null || args.Length > 0) UIParams.SetParams(args);
-            UIManager.GetInstance().ShowUIForms(uiFormName);
-        }
+     //   protected void OpenUIForm(string uiFormName, params object[] args)
+	    //{
+        //    if (args != null || args.Length > 0) UIParams.SetParams(args);
+        //    UIManager.GetInstance().ShowUIForms(uiFormName);
+        //}
+
 
         /// <summary>
         /// 关闭当前UI窗体
@@ -153,7 +155,7 @@ namespace SUIFW
         /// </summary>
         /// <param name="messagType">消息分类</param>
         /// <param name="handler">消息委托</param>
-	    public void ReceiveMessage(string messagType,MessageCenter.DelMessageDelivery handler)
+	    protected void ReceiveMessage(string messagType,MessageCenter.DelMessageDelivery handler)
 	    {
             MessageCenter.AddMsgListener(messagType, handler);
 	    }
@@ -162,7 +164,7 @@ namespace SUIFW
         /// 显示语言
         /// </summary>
         /// <param name="id"></param>
-	    public string Show(string id)
+	    protected string Show(string id)
         {
             string strResult = string.Empty;
 
@@ -170,7 +172,7 @@ namespace SUIFW
             return strResult;
         }
 
-        protected abstract void Update(object viewModel);
+        public abstract void Update(object viewModel);
 
 		/// <summary>
 		/// 获取界面参数列表
