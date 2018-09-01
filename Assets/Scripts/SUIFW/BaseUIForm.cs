@@ -111,8 +111,9 @@ namespace SUIFW
         /// 打开UI窗体
         /// </summary>
         /// <param name="uiFormName"></param>
-	    protected void OpenUIForm(string uiFormName)
+        protected void OpenUIForm(string uiFormName, params object[] args)
 	    {
+            if (args != null || args.Length > 0) UIParams.SetParams(args);
             UIManager.GetInstance().ShowUIForms(uiFormName);
         }
 
@@ -168,6 +169,24 @@ namespace SUIFW
             strResult = LauguageMgr.GetInstance().ShowText(id);
             return strResult;
         }
+
+        /// <summary>
+        /// 获取界面参数列表
+        /// </summary>
+        /// <returns>The parameters.</returns>
+        protected object[] GetParams() { return UIParams.GetParams(); }
+        /// <summary>
+        /// 获取范型界面参数列表
+        /// </summary>
+        /// <returns>The parameters.</returns>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        protected T[] GetParams<T>() { return UIParams.GetParams<T>(); }
+        /// <summary>
+        /// 获取单独的界面参数
+        /// </summary>
+        /// <returns>The single parameter.</returns>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        protected T GetSingleParam<T>(){ return UIParams.GetSingleParam<T>();}
 
 	    #endregion
 
