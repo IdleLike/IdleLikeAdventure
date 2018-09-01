@@ -11,10 +11,6 @@ namespace StaticData.Data
     public class RaceAbilityData : BaseDataObject
     {
         /// <summary>
-        /// 种族技能ID
-        /// </summary>
-        public uint AbilityID;
-        /// <summary>
         /// 种族技能名称
         /// </summary>
         public string AbilityName;

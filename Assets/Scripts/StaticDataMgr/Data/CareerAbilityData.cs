@@ -15,10 +15,6 @@ namespace StaticData.Data
             
         }
         /// <summary>
-        /// 职业技能ID
-        /// </summary>
-        public uint AbilityID;
-        /// <summary>
         /// 职业技能描述
         /// </summary>
         public string AbilityDescribe;

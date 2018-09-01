@@ -86,7 +86,7 @@ namespace StaticData
 
         void LoadDataBinWorker<ClassType>(string filename, object dic, Action<ClassType> process = null) where ClassType : BaseDataObject, new()
         {
-            Dictionary<ushort, ClassType> dataMap = dic as Dictionary<ushort, ClassType>;
+            Dictionary<uint, ClassType> dataMap = dic as Dictionary<uint, ClassType>;
 
             BinaryReader br = null;
             Stream ds = OpenBinDataFile(filename);
@@ -123,7 +123,7 @@ namespace StaticData
     //数据结构基类
     public abstract class BaseDataObject
     {
-        public ushort ID = 0; // ID
+        public uint ID = 0; // ID
         public abstract void ReadFromStream(BinaryReader br);
     }
     

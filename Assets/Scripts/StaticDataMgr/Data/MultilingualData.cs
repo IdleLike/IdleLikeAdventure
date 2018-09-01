@@ -1,5 +1,4 @@
-﻿using StaticData;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Text;
 namespace StaticData.Data
 {
     [Serializable]
-    public class MultilingualData : BaseDataObject
+    public class MultilingualData
     {
         /// <summary>
         /// ID
@@ -22,10 +21,5 @@ namespace StaticData.Data
         /// 英文
         /// </summary>
         public string EN;
-
-        public override void ReadFromStream(BinaryReader br)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

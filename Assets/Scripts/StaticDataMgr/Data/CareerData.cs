@@ -11,10 +11,6 @@ namespace StaticData.Data
     public class CareerData : BaseDataObject
     {
         /// <summary>
-        /// 职业ID
-        /// </summary>
-        public uint CareerID;
-        /// <summary>
         /// 职业最大等级
         /// </summary>
         public byte MaxLevel;
