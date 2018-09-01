@@ -29,6 +29,16 @@ namespace Service
         }
 
         /// <summary>
+        /// 移除消息
+        /// </summary>
+        /// <param name="messagType">消息分类</param>
+        /// <param name="handler">消息委托</param>
+        protected void RemoveMessage(string messagType, MessageCenter.DelMessageDelivery handler)
+        {
+            MessageCenter.RemoveMsgListener(messagType, handler);
+        }
+
+        /// <summary>
         /// 打开UI窗体
         /// </summary>
         /// <param name="uiFormName"></param>

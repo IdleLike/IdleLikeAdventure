@@ -4,14 +4,22 @@ namespace Service
 {
     public class GameService : ClassSingleton<GameService>
     {
-        private BaseService userService;                //用户服务
-        private BaseService actorService;               //角色服务
+        private UserService userService;                //用户服务
+        private ActorService actorService;               //角色服务
 
         public void Initialize()
         {
             //初始化所有服务类
             userService = new UserService();
             actorService = new ActorService();
+        }
+
+        /// <summary>
+        /// 登陆逻辑
+        /// </summary>
+        public void Login()
+        {
+            userService.Login();
         }
     }
 }
