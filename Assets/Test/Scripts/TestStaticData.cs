@@ -4,7 +4,8 @@ using UnityEngine;
 using System;
 using StaticData.Data;
 
-[Serializable][CreateAssetMenu]
+//[Serializable]
+[CreateAssetMenu]
 public class TestStaticData : ScriptableObject {
 
     private static TestStaticData instance;
