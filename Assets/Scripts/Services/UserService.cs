@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using UI.Model;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Entity;
 
 namespace Service
 {
@@ -20,7 +22,7 @@ namespace Service
                 //跳转主场景， 显示创建用户界面
                 SceneManager.LoadScene(GameGlobal.SCENE_MAIN);
                 SetCreateCharacterModel();
-                OpenUIForm("", createCharacterModel);
+                OpenUIForm(GameGlobal.PANEL_CREATECHARACTER, createCharacterModel);
             }
             else
             {
@@ -33,7 +35,36 @@ namespace Service
         {
             if (createCharacterModel == null) createCharacterModel = new CreateCharacterModel();
 
+            if (createCharacterModel.createCharacterViewModels == null) createCharacterModel.createCharacterViewModels = new List<CreateCharacterModel.CreateCharacterViewModel>();
 
+            for (int i = 0; i < TestStaticData.Instance.RaceDatas.Count; i++)
+            {
+                CreateCharacterModel.CreateCharacterViewModel rocal = new CreateCharacterModel.CreateCharacterViewModel();
+                rocal.raceID = TestStaticData.Instance.RaceDatas[i].ID;
+                rocal.raceName = TestStaticData.Instance.RaceDatas[i].Name;
+                rocal.raceDes = TestStaticData.Instance.RaceDatas[i].Describe;
+
+
+
+            }
+        }
+
+        /// <summary>
+        /// 创建用户
+        /// </summary>
+        private void Create()
+        {
+            
+        }
+
+        /// <summary>
+        /// 检测用户名是否重复
+        /// </summary>
+        /// <returns><c>true</c>, if name repeat was checked, <c>false</c> otherwise.</returns>
+        /// <param name="name">Name.</param>
+        private bool CheckNameRepeat(string name)
+        {
+            return TestDB.Instance.Users.Find(p=>p.Name == name) == null;
         }
     }
 }

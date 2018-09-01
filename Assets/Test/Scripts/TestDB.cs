@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Entity;
 
 [Serializable][CreateAssetMenu]
 public class TestDB : ScriptableObject {
@@ -20,7 +21,7 @@ public class TestDB : ScriptableObject {
     }
 
 
-
+    public List<UserEntity> Users = new List<UserEntity>();
 
 
 }
