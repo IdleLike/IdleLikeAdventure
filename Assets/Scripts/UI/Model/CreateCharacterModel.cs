@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace UI.Model
 {
@@ -16,7 +16,8 @@ namespace UI.Model
             public string raceAbilityOne { get; set; }
             public string raceAbilityTwo { get; set; }
         }
-
+        public Action<CreateCharacterPanel.CreateData> createCharacterCallback;
+       
         private List<CreateCharacterViewModel> m_createCharacterViewModels;
 
         public List<CreateCharacterViewModel> createCharacterViewModels
