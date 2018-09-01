@@ -21,10 +21,10 @@ public class CreateCharacterPanel : BaseUIForm
     }
 
     public Button Create_Btn;
-    public Text PlayerName;
-    public Text CharacterOneName;
-    public Text CharacterTwoName;
-    public Text CharacterThreeName;
+    public InputField PlayerName;
+    public InputField CharacterOneName;
+    public InputField CharacterTwoName;
+    public InputField CharacterThreeName;
     public Dropdown RocaOneType;
     public Dropdown RocaTwoType;
     public Dropdown RocaThreeType;
@@ -34,8 +34,10 @@ public class CreateCharacterPanel : BaseUIForm
     public Text GrowthDes;
     public Text AbilityOneDes;
     public Text AbilityTowDes;
-
-
+    public Text PlayerNameIsRepeatOrNull;
+    public Text CharacterOneIsRepeatOrNull;
+    public Text CharacterTwoIsRepeatOrNull;
+    public Text CharacterThreeIsRepeatOrNull;
 
     private CreateCharacterModel createCharacterModel;
 
@@ -44,29 +46,147 @@ public class CreateCharacterPanel : BaseUIForm
     {
         Create_Btn.onClick.AddListener(OnCreateClick);
         
-        RocaOneType.onValueChanged.AddListener(OnValueChanged);
-        RocaTwoType.onValueChanged.AddListener(OnValueChanged);
-        RocaThreeType.onValueChanged.AddListener(OnValueChanged);
+        RocaOneType.onValueChanged.AddListener(OnRocaTypeValueChanged);
+        RocaTwoType.onValueChanged.AddListener(OnRocaTypeValueChanged);
+        RocaThreeType.onValueChanged.AddListener(OnRocaTypeValueChanged);
+
+        PlayerName.onValueChanged.AddListener(OnPlayerNameIsRepeat);
+        CharacterOneName.onValueChanged.AddListener(OnCharacterOneIsRepeat);
+        CharacterTwoName.onValueChanged.AddListener(OnCharacterTwoIsRepeat);
+        CharacterThreeName.onValueChanged.AddListener(OnCharacterThreeIsRepeat);
     }
 
-    private void OnValueChanged(int index)
+    private void OnPlayerNameIsRepeat(string name)
     {
-        CreateCharacterModel.CreateCharacterViewModel model = createCharacterModel.createCharacterViewModels[index];
-        RocaName.text = model.raceName;
-        RocaDes.text = model.raceDes;
-        InitDes.text = model.initValue;
-        GrowthDes.text = model.growthValue;
-        AbilityOneDes.text = model.raceAbilityOne;
-        AbilityTowDes.text = model.raceAbilityTwo;
+        bool NameIsRepeat =  createCharacterModel.NameIsRepeatCallback(name);
+        if (NameIsRepeat)
+        {
+            PlayerNameIsRepeatOrNull.gameObject.SetActive(true);                
+        }
+        else
+        {
+            PlayerNameIsRepeatOrNull.gameObject.SetActive(false);
+        }
+    }
+    private void OnCharacterOneIsRepeat(string name)
+    {
+        bool NameIsRepeat = createCharacterModel.NameIsRepeatCallback(name);
+        if (NameIsRepeat)
+        {
+            CharacterOneIsRepeatOrNull.gameObject.SetActive(true);
+        }
+        else
+        {
+            CharacterOneIsRepeatOrNull.gameObject.SetActive(false);
+        }
+    }
+    private void OnCharacterTwoIsRepeat(string name)
+    {
+        bool NameIsRepeat = createCharacterModel.NameIsRepeatCallback(name);
+        if (NameIsRepeat)
+        {
+            CharacterTwoIsRepeatOrNull.gameObject.SetActive(true);
+        }
+        else
+        {
+            CharacterTwoIsRepeatOrNull.gameObject.SetActive(false);
+        }
+    }
+    private void OnCharacterThreeIsRepeat(string name)
+    {
+        bool NameIsRepeat = createCharacterModel.NameIsRepeatCallback(name);
+        if (NameIsRepeat)
+        {
+            CharacterThreeIsRepeatOrNull.gameObject.SetActive(true);
+        }
+        else
+        {
+            CharacterThreeIsRepeatOrNull.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnRocaTypeValueChanged(int index)
+    {
+        RocaName.text = createCharacterModel.createCharacterViewModels[index].raceName;
+        RocaDes.text = createCharacterModel.createCharacterViewModels[index].raceDes;
+        InitDes.text = createCharacterModel.createCharacterViewModels[index].initValue;
+        GrowthDes.text = createCharacterModel.createCharacterViewModels[index].growthValue;
+        AbilityOneDes.text = createCharacterModel.createCharacterViewModels[index].raceAbilityOne;
+        AbilityTowDes.text = createCharacterModel.createCharacterViewModels[index].raceAbilityTwo;
     }
 
     public void OnCreateClick()
     {
-        createCharacterModel.createCharacterCallback = CreateDataCallback;
+        
+        bool b = OnPlayerNameIsNull(PlayerName.text);
+        bool b1 = OnCharacterOneIsNull(CharacterOneName.text);
+        bool b2 = OnCharacterTwoIsNull(CharacterTwoName.text);
+        bool b3 = OnCharacterThreeIsNull(CharacterThreeName.text);
+
+        if (b || b1 || b2 || b3)
+        {
+            return;
+        }
+
+        createCharacterModel.CreateCharacterCallback(CreateDataCallback());
+    }
+    private bool OnPlayerNameIsNull(string name)
+    {
+        if (name == "" || name == String.Empty)
+        {
+            PlayerNameIsRepeatOrNull.gameObject.SetActive(true);
+            return true;
+        }
+        else
+        {
+            PlayerNameIsRepeatOrNull.gameObject.SetActive(false);
+            return false;
+        }
+    }
+    private bool OnCharacterOneIsNull(string name)
+    {
+        if (name == "" || name == String.Empty)
+        {
+            CharacterOneIsRepeatOrNull.gameObject.SetActive(true);
+            return true;
+        }
+        else
+        {
+            CharacterOneIsRepeatOrNull.gameObject.SetActive(false);
+            return false;
+        }
+    }
+    private bool OnCharacterTwoIsNull(string name)
+    {
+        if (name == "" || name == String.Empty)
+        {
+            CharacterTwoIsRepeatOrNull.gameObject.SetActive(true);
+            return true;
+        }
+        else
+        {
+            CharacterTwoIsRepeatOrNull.gameObject.SetActive(false);
+            return false;
+        }
+    }
+    private bool OnCharacterThreeIsNull(string name)
+    {
+        if (name == "" || name == String.Empty)
+        {
+            CharacterThreeIsRepeatOrNull.gameObject.SetActive(true);
+            return true;
+        }
+        else
+        {
+            CharacterThreeIsRepeatOrNull.gameObject.SetActive(false);
+            return false;
+        }
     }
 
-    private void CreateDataCallback(CreateData createData)
+
+    private CreateData CreateDataCallback()
     {
+        CreateData createData = new CreateData();
         createData.playerName = PlayerName.text;
         createData.characterOneName = CharacterOneName.text;
         createData.characterTwoName = CharacterTwoName.text;
@@ -74,6 +194,7 @@ public class CreateCharacterPanel : BaseUIForm
         createData.rocaOneType = RocaOneType.captionText.text;
         createData.rocaTwoType = RocaTwoType.captionText.text;
         createData.rocaThreeType = RocaThreeType.captionText.text;
+        return createData;
     }
 
     private void InitModel(object viewModel)

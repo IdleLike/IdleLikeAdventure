@@ -16,8 +16,10 @@ namespace UI.Model
             public string raceAbilityOne { get; set; }
             public string raceAbilityTwo { get; set; }
         }
-        public Action<CreateCharacterPanel.CreateData> createCharacterCallback;
-       
+        public Action<CreateCharacterPanel.CreateData> CreateCharacterCallback;
+
+        public Func<string, bool> NameIsRepeatCallback;
+
         private List<CreateCharacterViewModel> m_createCharacterViewModels;
 
         public List<CreateCharacterViewModel> createCharacterViewModels
