@@ -6,7 +6,7 @@ using System;
 using StaticData;
 using System.Reflection;
 using GlobalDefine;
-//using StaticData.Data;
+using StaticData.Data;
 using UnityEngine;
 using StaticDataTool;
 
@@ -28,14 +28,26 @@ namespace StaticData
 
         // *************				data	 	***************
 		//public Dictionary<ushort, AbilityData> mAbilityDataMap = new Dictionary<ushort, AbilityData>(); //Ability Data
+        public Dictionary<uint, CareerAbilityData> mAbilityDataMap = new Dictionary<uint, CareerAbilityData>();
 
         //加载数据
         public void LoadData()
         {
-            //TODO 测试
+            #region 测试数据
+            foreach (var item in TestStaticData.Instance.CareerAbilityDatas)
+            {
+                mAbilityDataMap.Add(item.mID, item);
+            }
 
-						
-			//定义如型： void SheetNameDataProcess(ClassType data) 的函数, 会被自动调用
+
+            #endregion
+
+
+
+
+
+
+            //定义如型： void SheetNameDataProcess(ClassType data) 的函数, 会被自动调用
 
             //设置进度
             Console.WriteLine("Read All Data Done!");

@@ -5,8 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace StaticDataMgr.Data
+namespace StaticData.Data
 {
+    [Serializable]
     public class LevelData : BaseDataObject
     {
         /// <summary>

@@ -5,9 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace StaticDataMgr.Data
+namespace StaticData.Data
 {
-    class CareerData : BaseDataObject
+    [Serializable]
+    public class CareerData : BaseDataObject
     {
         /// <summary>
         /// 职业ID
