@@ -25,7 +25,7 @@ using UnityEngine;
 
 namespace SUIFW
 {
-	public class BaseUIForm : MonoBehaviour {
+	public abstract class BaseUIForm : MonoBehaviour {
         /*字段*/
         private UIType _CurrentUIType=new UIType();
 
@@ -170,11 +170,13 @@ namespace SUIFW
             return strResult;
         }
 
-        /// <summary>
-        /// 获取界面参数列表
-        /// </summary>
-        /// <returns>The parameters.</returns>
-        protected object[] GetParams() { return UIParams.GetParams(); }
+        protected abstract void Update(object viewModel);
+
+		/// <summary>
+		/// 获取界面参数列表
+		/// </summary>
+		/// <returns>The parameters.</returns>
+		protected object[] GetParams() { return UIParams.GetParams(); }
         /// <summary>
         /// 获取范型界面参数列表
         /// </summary>
