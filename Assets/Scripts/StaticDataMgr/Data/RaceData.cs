@@ -53,11 +53,11 @@ namespace StaticData.Data
         /// <summary>
         /// 种族技能一ID
         /// </summary>
-        public byte AbilityOneID;
+        public uint AbilityOneID;
         /// <summary>
         /// 种族技能二ID
         /// </summary>
-        public byte AbilityTwoID;
+        public uint AbilityTwoID;
 
 
 
