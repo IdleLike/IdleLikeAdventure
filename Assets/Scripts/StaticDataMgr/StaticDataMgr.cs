@@ -28,7 +28,13 @@ namespace StaticData
 
         // *************				data	 	***************
 		//public Dictionary<ushort, AbilityData> mAbilityDataMap = new Dictionary<ushort, AbilityData>(); //Ability Data
-        public Dictionary<uint, CareerAbilityData> mAbilityDataMap = new Dictionary<uint, CareerAbilityData>();
+        public Dictionary<uint, CareerData> mCareerDataMap = new Dictionary<uint, CareerData>();
+        public Dictionary<uint, CareerAbilityData> mCareerAbilityDataMap = new Dictionary<uint, CareerAbilityData>();
+        public Dictionary<uint, LevelData> mLevelDataMap = new Dictionary<uint, LevelData>();
+        public Dictionary<string, MultilingualData> mMultilingualDataMap = new Dictionary<string, MultilingualData>();
+        public Dictionary<uint, RaceAbilityData> mRaceAbilityDataMap = new Dictionary<uint, RaceAbilityData>();
+        public Dictionary<uint, RaceData> mRaceDataMap = new Dictionary<uint, RaceData>();
+
 
         //加载数据
         public void LoadData()
@@ -36,10 +42,28 @@ namespace StaticData
             #region 测试数据
             foreach (var item in TestStaticData.Instance.CareerAbilityDatas)
             {
-                mAbilityDataMap.Add(item.mID, item);
+                mCareerAbilityDataMap.Add(item.ID, item);
             }
-
-
+            foreach (var item in TestStaticData.Instance.CareerDatas)
+            {
+                mCareerDataMap.Add(item.ID, item);
+            }
+            foreach (var item in TestStaticData.Instance.LevelDatas)
+            {
+                mLevelDataMap.Add(item.ID, item);
+            }
+            foreach (var item in TestStaticData.Instance.MultilingualDatas)
+            {
+                mMultilingualDataMap.Add(item.ID, item);
+            }
+            foreach (var item in TestStaticData.Instance.RaceAbilityDatas)
+            {
+                mRaceAbilityDataMap.Add(item.ID, item);
+            }
+            foreach (var item in TestStaticData.Instance.RaceDatas)
+            {
+                mRaceDataMap.Add(item.ID, item);
+            }
             #endregion
 
 
@@ -73,7 +97,7 @@ namespace StaticData
                 {
                     ClassType tNewData = new ClassType();
                     tNewData.ReadFromStream(br);
-                    dataMap.Add(tNewData.mID, tNewData);
+                    dataMap.Add(tNewData.ID, tNewData);
                     if (process != null)
                     {
                         process(tNewData);
@@ -99,7 +123,7 @@ namespace StaticData
     //数据结构基类
     public abstract class BaseDataObject
     {
-        public ushort mID = 0; // ID
+        public ushort ID = 0; // ID
         public abstract void ReadFromStream(BinaryReader br);
     }
     
