@@ -172,7 +172,7 @@ namespace SUIFW
             return strResult;
         }
 
-        public abstract void Update(object viewModel);
+        public abstract void UpdatePanel(object viewModel);
 
 		/// <summary>
 		/// 获取界面参数列表

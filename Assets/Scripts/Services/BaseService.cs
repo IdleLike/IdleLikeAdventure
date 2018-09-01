@@ -38,7 +38,7 @@ namespace Service
             //打开界面
             BaseUIForm baseUIForms = UIManager.GetInstance().ShowUIForms(uiFormName);
             //刷新界面数据
-            baseUIForms.Update(args);
+            baseUIForms.UpdatePanel(args);
 
         }
 
