@@ -31,12 +31,14 @@ namespace Service
             }
         }
 
+        //  创建角色界面数据
         private void SetCreateCharacterModel()
         {
             if (createCharacterModel == null) createCharacterModel = new CreateCharacterModel();
 
             if (createCharacterModel.createCharacterViewModels == null) createCharacterModel.createCharacterViewModels = new List<CreateCharacterModel.CreateCharacterViewModel>();
 
+            //初始化所有职业数据
             for (int i = 0; i < TestStaticData.Instance.RaceDatas.Count; i++)
             {
                 // 数据赋值
@@ -44,25 +46,33 @@ namespace Service
                 rocal.raceID = TestStaticData.Instance.RaceDatas[i].ID;
                 rocal.raceName = TestStaticData.Instance.RaceDatas[i].Name;
                 rocal.raceDes = TestStaticData.Instance.RaceDatas[i].Describe;
-
+                rocal.initCon = TestStaticData.Instance.RaceDatas[i].InitCon;
+                rocal.initDex = TestStaticData.Instance.RaceDatas[i].InitDex;
+                rocal.initPow = TestStaticData.Instance.RaceDatas[i].InitPow;
+                rocal.initHP = TestStaticData.Instance.RaceDatas[i].InitHP;
+                rocal.growthCon = TestStaticData.Instance.RaceDatas[i].ConGrowth;
+                rocal.growthDex = TestStaticData.Instance.RaceDatas[i].DexGrowth;
+                rocal.growthPow = TestStaticData.Instance.RaceDatas[i].PowGrowth;
+                rocal.growthHP = TestStaticData.Instance.RaceDatas[i].HPGrowth;
 
                 createCharacterModel.createCharacterViewModels.Add(rocal);
             }
+
+            //初始化所有委托
+            createCharacterModel.CreateCharacterCallback = Create;
+            createCharacterModel.NameIsRepeatCallback = CheckNameRepeat;
         }
 
-        /// <summary>
-        /// 创建用户
-        /// </summary>
-        private void Create()
+        //  创建用户
+        private void Create(CreateCharacterPanel.CreateData obj)
         {
-            
+            //创建用户
+            //初始化数据
+            //跳转页面
         }
 
-        /// <summary>
-        /// 检测用户名是否重复
-        /// </summary>
-        /// <returns><c>true</c>, if name repeat was checked, <c>false</c> otherwise.</returns>
-        /// <param name="name">Name.</param>
+
+        // 检测用户名是否重复
         private bool CheckNameRepeat(string name)
         {
             return TestDB.Instance.Users.Find(p=>p.Name == name) == null;
