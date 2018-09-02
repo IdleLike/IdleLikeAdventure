@@ -260,7 +260,7 @@ namespace SUIFW
             //根据“UI窗体名称”，加载“预设克隆体”
             if (!string.IsNullOrEmpty(strUIFormPaths))
             {
-                goCloneUIPrefabs = ResourcesMgr.GetInstance().LoadAsset(strUIFormPaths, false);
+                goCloneUIPrefabs = ResourcesMgr.GetInstance().LoadAsset("Prefab/UI/Panel/" + strUIFormPaths, false);
             }
             //设置“UI克隆体”的父节点（根据克隆体中带的脚本中不同的“位置信息”）
             if (_TraCanvasTransfrom != null && goCloneUIPrefabs != null)
@@ -475,7 +475,7 @@ namespace SUIFW
         /// </summary>
 	    private void InitUIFormsPathData()
 	    {
-            IConfigManager configMgr = new ConfigManagerByJson(SysDefine.SYS_PATH_UIFORMS_CONFIG_INFO);
+            IConfigManager configMgr = new ConfigManagerByJson("Configs/" + SysDefine.SYS_PATH_UIFORMS_CONFIG_INFO);
             if (configMgr!=null)
             {
                 _DicFormsPaths = configMgr.AppSetting;

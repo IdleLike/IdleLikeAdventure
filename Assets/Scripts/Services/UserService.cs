@@ -20,7 +20,7 @@ namespace Service
             {
                 //TODO 创建新用户
                 //跳转主场景， 显示创建用户界面
-                SceneManager.LoadScene(GameGlobal.SCENE_MAIN);
+                //SceneManager.LoadScene(GameGlobal.SCENE_MAIN);
                 SetCreateCharacterModel();
                 OpenUIForm(GameGlobal.PANEL_CREATECHARACTER, createCharacterModel);
             }
@@ -39,13 +39,14 @@ namespace Service
 
             for (int i = 0; i < TestStaticData.Instance.RaceDatas.Count; i++)
             {
+                // 数据赋值
                 CreateCharacterModel.CreateCharacterViewModel rocal = new CreateCharacterModel.CreateCharacterViewModel();
                 rocal.raceID = TestStaticData.Instance.RaceDatas[i].ID;
                 rocal.raceName = TestStaticData.Instance.RaceDatas[i].Name;
                 rocal.raceDes = TestStaticData.Instance.RaceDatas[i].Describe;
 
 
-
+                createCharacterModel.createCharacterViewModels.Add(rocal);
             }
         }
 
