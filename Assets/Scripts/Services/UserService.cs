@@ -43,7 +43,7 @@ namespace Service
             {
                 // 数据赋值
                 CreateCharacterModel.CreateCharacterViewModel rocal = new CreateCharacterModel.CreateCharacterViewModel();
-                rocal.raceID = TestStaticData.Instance.RaceDatas[i].ID;
+                rocal.raceID =  TestStaticData.Instance.RaceDatas[i].ID;
                 rocal.raceName = TestStaticData.Instance.RaceDatas[i].Name;
                 rocal.raceDes = TestStaticData.Instance.RaceDatas[i].Describe;
                 rocal.initCon = TestStaticData.Instance.RaceDatas[i].InitCon;
