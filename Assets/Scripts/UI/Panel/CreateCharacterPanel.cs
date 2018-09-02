@@ -109,8 +109,9 @@ public class CreateCharacterPanel : BaseUIForm
     {
         RocaName.text = createCharacterModel.createCharacterViewModels[index].raceName;
         RocaDes.text = createCharacterModel.createCharacterViewModels[index].raceDes;
-        InitDes.text = createCharacterModel.createCharacterViewModels[index].initValue;
-        GrowthDes.text = createCharacterModel.createCharacterViewModels[index].growthValue;
+        //TODO
+        //InitDes.text = createCharacterModel.createCharacterViewModels[index].initValue;
+        //GrowthDes.text = createCharacterModel.createCharacterViewModels[index].growthValue;
         AbilityOneDes.text = createCharacterModel.createCharacterViewModels[index].raceAbilityOne;
         AbilityTowDes.text = createCharacterModel.createCharacterViewModels[index].raceAbilityTwo;
     }
@@ -199,6 +200,10 @@ public class CreateCharacterPanel : BaseUIForm
 
     private void InitModel(object viewModel)
     {
+        if (viewModel == null ||!(viewModel is CreateCharacterModel))
+        {
+            return;
+        }
         createCharacterModel = (CreateCharacterModel)viewModel;
         for (int i = 0; i < createCharacterModel.createCharacterViewModels.Count; i++)
         {

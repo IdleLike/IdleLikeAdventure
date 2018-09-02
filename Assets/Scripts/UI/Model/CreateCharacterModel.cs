@@ -11,8 +11,14 @@ namespace UI.Model
             public uint raceID { get; set; }
             public string raceName { get; set; }
             public string raceDes { get; set; }
-            public string initValue { get; set; }
-            public string growthValue { get; set; }
+            public uint initHP { get; set; }
+            public uint initCon { get; set; }
+            public uint initPow { get; set; }
+            public uint initDex { get; set; }
+            public uint growthHP { get; set; }
+            public uint growthCon { get; set; }
+            public uint growthPow { get; set; }
+            public uint growthDex { get; set; }
             public string raceAbilityOne { get; set; }
             public string raceAbilityTwo { get; set; }
         }
