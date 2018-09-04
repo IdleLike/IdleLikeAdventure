@@ -54,7 +54,8 @@ namespace Service
                 rocal.growthDex = TestStaticData.Instance.RaceDatas[i].DexGrowth;
                 rocal.growthPow = TestStaticData.Instance.RaceDatas[i].PowGrowth;
                 rocal.growthHP = TestStaticData.Instance.RaceDatas[i].HPGrowth;
-
+                rocal.raceAbilityOne = TestStaticData.Instance.RaceDatas[i].AbilityOneID;
+                rocal.raceAbilityTwo = TestStaticData.Instance.RaceDatas[i].AbilityTwoID;
                 createCharacterModel.createCharacterViewModels.Add(rocal);
             }
 

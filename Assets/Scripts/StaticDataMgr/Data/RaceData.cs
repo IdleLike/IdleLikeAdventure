@@ -50,14 +50,15 @@ namespace StaticData.Data
         /// 种族体质成长
         /// </summary>
         public ushort ConGrowth;
+        //TODO
         /// <summary>
         /// 种族技能一ID
         /// </summary>
-        public uint AbilityOneID;
+        public string AbilityOneID;
         /// <summary>
         /// 种族技能二ID
         /// </summary>
-        public uint AbilityTwoID;
+        public string AbilityTwoID;
 
 
 
