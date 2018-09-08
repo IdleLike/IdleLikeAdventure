@@ -7,8 +7,6 @@ using StaticData;
 using System.Reflection;
 using GlobalDefine;
 using StaticData.Data;
-using UnityEngine;
-using StaticDataTool;
 
 namespace StaticData
 {
@@ -25,19 +23,15 @@ namespace StaticData
             }
             protected set { instance = value; }
         }
-	
-	// 多语言配置
-	private Dictionary<string, StringData> mStringData = new Dictionary<string, StringData>();
-		
 
         // *************				data	 	***************
-		{$DataDefine}
+		public Dictionary<ushort, TestListData> mTestListDataMap = new Dictionary<ushort, TestListData>(); //TestList Data
+
         //加载数据
         public void LoadData()
         {
-			
-			
-			{$LoadData}
+			LoadDataBinWorker<TestListData>("TestList.bytes", mTestListDataMap); //TestList Data
+
 						
 			//定义如型： void SheetNameDataProcess(ClassType data) 的函数, 会被自动调用
 
@@ -48,8 +42,7 @@ namespace StaticData
         //根据指定的数据文件名，创建流。 参数格式：“Strings.bytes”
         private Stream OpenBinDataFile(string filename)
         {//
-			TextAsset binDataAsset = Resources.Load(FolderCfg.BinFolder() + filename.Substring(0, filename.Length - 6)) as TextAsset;
-            return FileDes.DecryptDataToStream(binDataAsset.bytes);
+            return FileDes.DecryptFileToStream(FolderCfg.BinFolder() + filename);
         }
 
         void LoadDataBinWorker<ClassType>(string filename, object dic, Action<ClassType> process = null) where ClassType : BaseDataObject, new()
@@ -88,13 +81,6 @@ namespace StaticData
             return;
         }
     }//class
-    //数据结构基类
-    public abstract class BaseDataObject
-    {
-        public ushort mID = 0; // ID
-        public abstract void ReadFromStream(BinaryReader br);
-    }
-
 }
 
 

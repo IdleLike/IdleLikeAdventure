@@ -25,19 +25,15 @@ namespace StaticData
             }
             protected set { instance = value; }
         }
-	
-	// 多语言配置
-	private Dictionary<string, StringData> mStringData = new Dictionary<string, StringData>();
-		
 
         // *************				data	 	***************
-		{$DataDefine}
+		public Dictionary<ushort, TestListData> mTestListDataMap = new Dictionary<ushort, TestListData>(); //TestList Data
+
         //加载数据
         public void LoadData()
         {
-			
-			
-			{$LoadData}
+			LoadDataBinWorker<TestListData>("TestList.bytes", mTestListDataMap); //TestList Data
+
 						
 			//定义如型： void SheetNameDataProcess(ClassType data) 的函数, 会被自动调用
 

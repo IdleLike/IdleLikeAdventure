@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.IO;
@@ -25,18 +25,12 @@ namespace StaticData
             }
             protected set { instance = value; }
         }
-	
-	// 多语言配置
-	private Dictionary<string, StringData> mStringData = new Dictionary<string, StringData>();
-		
 
         // *************				data	 	***************
 		{$DataDefine}
         //加载数据
         public void LoadData()
         {
-			
-			
 			{$LoadData}
 						
 			//定义如型： void SheetNameDataProcess(ClassType data) 的函数, 会被自动调用
