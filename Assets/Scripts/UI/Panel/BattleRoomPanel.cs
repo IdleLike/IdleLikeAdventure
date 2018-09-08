@@ -367,8 +367,23 @@ namespace UI.Panel
 
         private bool IsInit = false;
 
-        private string m_InfoTemplete = "{0}.{1}攻击了{2}，造成了{4}伤害。";
+        private string m_DerateDamageInfoTemplete = "，对方减免了{0}伤害";
+        private string m_NormalAttackInfoTemplete = "{0}.{1}攻击了{2}";
+        private string m_SkillInfoTemplete = "{0}.{1}使用技能{2}攻击了{3}";
+        private string m_AOEInfoTemplete = "{0}受到{1}AOE伤害";
+        private string m_DodgeInfoTemplete = "，但被对方闪避，{4}没有受到直接伤害";
+        private string m_RestInfoTemplete = "战斗刚结束，正在休息恢复中，并搜寻敌人...({0})";
+        private string m_SuccessResultInfoTemplete = "团队收获金币{0}g/n{1}获得了经验{2}Exp/n{3}获得了经验{4}Exp/n{5}获得了{6}Exp/n/n敌方被击败，战斗结束...";
+        private string m_FailureResultInfoTemplete = "";
+        private string m_DeathblowInfoTemplete = "，触发了致命一击";
+        private string m_DamageInfoTemplete = "，造成了{3}伤害";
 
+
+        private string m_BuffInfoTemplete = "{0} {1}，受到伤害{2}，持续{3}轮";
+        private string m_BeatInfoTemplete = "{0}被击败了";
+       
+        private string m_RecoveryInfoTemplete = "，恢复了自己{2}HP，{3}没有受到直接伤害";
+        private string m_GroupRecoveryInfoTemplete = "{0}恢复了{1}HP";
         /// <summary>
         /// 初始化战斗信息
         /// </summary>
@@ -389,13 +404,6 @@ namespace UI.Panel
                     CurrentBattleReport = BattleModel.reportStack.Pop();
                     InitReportInfo(BattleModel, CurrentBattleReport);
                 }
-                //for (int i = 0; i < BattleModel.characterList.Count; i++)
-                //{
-                //    CharacterUIInfoList[i].HP_Sli.value = 1;
-                //    CharacterUIInfoList[i].MP_Sli.value = 1;
-                //    CharacterUIInfoList[i].CurrentHP = 1;
-                //    CharacterUIInfoList[i].HP_Txt.text = BattleModel.characterList[i].HP.ToString() + "/" + BattleModel.characterList[i].HP.ToString();
-                //}
             }
             else
             {
@@ -417,8 +425,7 @@ namespace UI.Panel
                     if (Content_Tra != null)
                     {
                         ReportGo = Resources.Load("UI/Battle/AttackReport") as Text;
-                        //ReportGo.text = CurrentBattleReport.ReportID.ToString() + ":" + GetAttacker(battleModel, CurrentBattleReport) + "攻击了" + GetAnAttacker(battleModel, CurrentBattleReport);
-                        ReportGo.text = string.Format(  m_InfoTemplete, CurrentBattleReport.ReportID, 
+                        ReportGo.text = string.Format(  m_NormalAttackInfoTemplete, CurrentBattleReport.ReportID, 
                                                         GetAttacker(battleModel, CurrentBattleReport), 
                                                         GetAnAttacker(battleModel, CurrentBattleReport), 
                                                         CurrentBattleReport.damage);
@@ -454,10 +461,6 @@ namespace UI.Panel
 
         private string GetAnAttacker(BattleRoomModel battleModel, BattleRoomModel.BattleReportModel CurrentBattleReport)
         {
-            //BattleRoomModel.BattleCharacterModel CharacterAttacker = battleModel.characterList.Find(c => c.ID == CurrentBattleReport.Attacker);
-            //BattleRoomModel.BattleEnemyModel EnemyAttacker = battleModel.enemyList.Find(c => c.ID == CurrentBattleReport.Attacker);
-            //return CharacterAttacker.Name ?? EnemyAttacker.Name;
-
             foreach (var item in battleModel.characterList)
             {
                 if (item.ID == CurrentBattleReport.AnAttacker)
