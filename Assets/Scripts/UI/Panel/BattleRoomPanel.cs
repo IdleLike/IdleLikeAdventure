@@ -9,6 +9,7 @@ namespace UI.Panel
 {
     public class BattleRoomModel
     {
+        [Serializable]
         public struct BattleCharacterModel
         {
             /// <summary>
@@ -39,7 +40,16 @@ namespace UI.Panel
             /// 角色最大血量
             /// </summary>
             public ushort MaxHP;
+            /// <summary>
+            /// 角色最大魔法
+            /// </summary>
+            public ushort MaxMP_Txt;
+            /// <summary>
+            /// 角色当前魔法
+            /// </summary>
+            public ushort CurrentMP_Txt;
         }
+        [Serializable]
         public struct BattleEnemyModel
         {
             /// <summary>
@@ -57,11 +67,15 @@ namespace UI.Panel
             /// <summary>
             /// 敌人血量
             /// </summary>
-            public ushort HP;
+            public ushort CurrentHP;
+            /// <summary>
+            /// 敌人血量
+            /// </summary>
+            public ushort MaxHP;
             /// <summary>
             /// 敌人技能悬停显示
             /// </summary>
-            public Image Ability_Img;
+            public Sprite Ability_sprite;
             /// <summary>
             /// 技能回调
             /// </summary>
@@ -292,13 +306,21 @@ namespace UI.Panel
             /// </summary>
             public Text Level_Txt;
             /// <summary>
-            /// 角色血量
+            /// 角色最大血量
             /// </summary>
-            public Text HP_Txt;
+            public Text MaxHP_Txt;
             /// <summary>
-            /// 角色血量
+            /// 角色当前血量
             /// </summary>
             public Text CurrentHP_Txt;
+            /// <summary>
+            /// 角色最大魔法
+            /// </summary>
+            public ushort MaxMP_Txt;
+            /// <summary>
+            /// 角色当前魔法
+            /// </summary>
+            public ushort CurrentMP_Txt;
             /// <summary>
             /// 角色血条
             /// </summary>
@@ -326,9 +348,13 @@ namespace UI.Panel
             /// </summary>
             public Text Level_Txt;
             /// <summary>
-            /// 敌人血量
+            /// 敌人当前血量
             /// </summary>
-            public Text HP_Txt;
+            public Text CurrentHP_Txt;
+            /// <summary>
+            /// 敌人最大血量
+            /// </summary>
+            public Text MaxHP_Txt;
             /// <summary>
             /// 敌人血条
             /// </summary>
@@ -511,9 +537,10 @@ namespace UI.Panel
                 CharacterUIInfoList[i].RocaName_Txt.text = model.characterList[i].RocaName;
                 CharacterUIInfoList[i].Career_Txt.text = model.characterList[i].Career;
                 CharacterUIInfoList[i].Level_Txt.text = model.characterList[i].Level.ToString();
-                CharacterUIInfoList[i].HP_Sli.value = 1;
-                CharacterUIInfoList[i].MP_Sli.value = 1;
-                CharacterUIInfoList[i].HP_Txt.text = model.characterList[i].CurrentHP.ToString() + "/" + model.characterList[i].MaxHP.ToString();
+                CharacterUIInfoList[i].HP_Sli.value = Mathf.Clamp(model.characterList[i].CurrentHP,0, model.characterList[i].MaxHP) / (float)model.characterList[i].MaxHP;
+                CharacterUIInfoList[i].MP_Sli.value = Mathf.Clamp(model.characterList[i].CurrentMP_Txt, 0, model.characterList[i].MaxMP_Txt) / (float)model.characterList[i].MaxMP_Txt; 
+                CharacterUIInfoList[i].CurrentHP_Txt.text = model.characterList[i].CurrentHP.ToString();
+                CharacterUIInfoList[i].MaxHP_Txt.text =  model.characterList[i].MaxHP.ToString();
             }
             IsInit = true;
         }
@@ -531,9 +558,10 @@ namespace UI.Panel
             {
                 EnemyUIInfoList[i].Name_Txt.text = model.enemyList[i].Name;
                 EnemyUIInfoList[i].Level_Txt.text = model.enemyList[i].Level.ToString();
-                EnemyUIInfoList[i].HP_Sli.value = 1;
-                EnemyUIInfoList[i].HP_Txt.text = model.enemyList[i].HP.ToString() + "/" + model.enemyList[i].HP.ToString();
-                EnemyUIInfoList[i].Ability_Img.sprite = model.enemyList[i].Ability_Img.sprite;
+                EnemyUIInfoList[i].HP_Sli.value = Mathf.Clamp(model.enemyList[i].CurrentHP, 0, model.enemyList[i].MaxHP) / (float)model.enemyList[i].MaxHP; ;
+                EnemyUIInfoList[i].CurrentHP_Txt.text = model.enemyList[i].CurrentHP.ToString();
+                EnemyUIInfoList[i].MaxHP_Txt.text = model.enemyList[i].MaxHP.ToString();
+                EnemyUIInfoList[i].Ability_Img.sprite = model.enemyList[i].Ability_sprite;
             }
             IsInit = true;
         }

@@ -26,4 +26,8 @@ public class TestStaticData : ScriptableObject {
     public List<MultilingualData> MultilingualDatas = new List<MultilingualData>();
     public List<RaceAbilityData> RaceAbilityDatas = new List<RaceAbilityData>();
     public List<RaceData> RaceDatas = new List<RaceData>();
+
+
+    public List<UI.Panel.BattleRoomModel.BattleCharacterModel> BattleCharacterModel = new List<UI.Panel.BattleRoomModel.BattleCharacterModel>();
+    public List<UI.Panel.BattleRoomModel.BattleEnemyModel> BattleEnemyModel = new List<UI.Panel.BattleRoomModel.BattleEnemyModel>();
 }

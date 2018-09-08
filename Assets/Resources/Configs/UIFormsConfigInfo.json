@@ -9,6 +9,10 @@
     {
       "Key": "CreateCharacter",
       "Value": "CreateCharacterPanel"
+    },
+    {
+      "Key": "BattleRoom",
+      "Value": "BattleRoomPanel"
     }
   ]
 }

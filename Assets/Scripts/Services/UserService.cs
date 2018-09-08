@@ -4,6 +4,7 @@ using UI.Model;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Entity;
+using UI.Panel;
 
 namespace Service
 {
@@ -12,6 +13,7 @@ namespace Service
     {
         //ViewModel
         private CreateCharacterModel createCharacterModel;
+        private BattleRoomModel battleRoomModel;
 
         internal void Login()
         {
@@ -21,8 +23,10 @@ namespace Service
                 //TODO 创建新用户
                 //跳转主场景， 显示创建用户界面
                 //SceneManager.LoadScene(GameGlobal.SCENE_MAIN);
-                SetCreateCharacterModel();
-                OpenUIForm(GameGlobal.PANEL_CREATECHARACTER, createCharacterModel);
+                //SetCreateCharacterModel();
+                //OpenUIForm(GameGlobal.PANEL_CREATECHARACTER, createCharacterModel);
+                InitBattle();
+                OpenUIForm(GameGlobal.PANEL_BATTLEROOM, battleRoomModel);
             }
             else
             {
@@ -68,8 +72,12 @@ namespace Service
         private void Create(CreateCharacterPanel.CreateData obj)
         {
             //创建用户
+
+
             //初始化数据
+
             //跳转页面
+
         }
 
 
@@ -77,6 +85,41 @@ namespace Service
         private bool CheckNameRepeat(string name)
         {
             return TestDB.Instance.Users.Find(p=>p.Name == name) == null;
+        }
+
+
+        private void InitBattle()
+        {
+            if (battleRoomModel == null) battleRoomModel = new BattleRoomModel();
+
+            if (battleRoomModel.characterList == null) battleRoomModel.characterList = new List<BattleRoomModel.BattleCharacterModel>();
+            if (battleRoomModel.enemyList == null) battleRoomModel.enemyList = new List<BattleRoomModel.BattleEnemyModel>();
+
+            for (int i = 0; i < TestStaticData.Instance.BattleCharacterModel.Count; i++)
+            {
+                BattleRoomModel.BattleCharacterModel model = new BattleRoomModel.BattleCharacterModel();
+                model.ID = TestStaticData.Instance.BattleCharacterModel[i].ID;
+                model.Name = TestStaticData.Instance.BattleCharacterModel[i].Name;
+                model.RocaName = TestStaticData.Instance.BattleCharacterModel[i].RocaName;
+                model.Career = TestStaticData.Instance.BattleCharacterModel[i].Career;
+                model.Level = TestStaticData.Instance.BattleCharacterModel[i].Level;
+                model.CurrentHP = TestStaticData.Instance.BattleCharacterModel[i].CurrentHP;
+                model.MaxHP = TestStaticData.Instance.BattleCharacterModel[i].MaxHP;
+                model.MaxMP_Txt = TestStaticData.Instance.BattleCharacterModel[i].MaxMP_Txt;
+                model.CurrentMP_Txt = TestStaticData.Instance.BattleCharacterModel[i].CurrentMP_Txt;
+                battleRoomModel.characterList.Add(model);
+            }
+            for (int i = 0; i < TestStaticData.Instance.BattleEnemyModel.Count; i++)
+            {
+                BattleRoomModel.BattleEnemyModel model = new BattleRoomModel.BattleEnemyModel();
+                model.ID = TestStaticData.Instance.BattleEnemyModel[i].ID;
+                model.Name = TestStaticData.Instance.BattleEnemyModel[i].Name;
+                model.Level = TestStaticData.Instance.BattleEnemyModel[i].Level;
+                model.CurrentHP = TestStaticData.Instance.BattleEnemyModel[i].CurrentHP;
+                model.MaxHP = TestStaticData.Instance.BattleEnemyModel[i].MaxHP;
+                model.Ability_sprite = TestStaticData.Instance.BattleEnemyModel[i].Ability_sprite;
+                battleRoomModel.enemyList.Add(model);
+            }
         }
     }
 }

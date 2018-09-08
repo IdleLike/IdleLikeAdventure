@@ -12,4 +12,5 @@ public static class GameGlobal
 
     //PanelName
     public static string PANEL_CREATECHARACTER = "CreateCharacter";
+    public static string PANEL_BATTLEROOM = "BattleRoom";
 }
