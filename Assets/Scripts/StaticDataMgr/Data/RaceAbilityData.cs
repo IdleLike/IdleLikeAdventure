@@ -1,28 +1,23 @@
-﻿using StaticData;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace StaticData.Data
 {
-    [Serializable]
     public class RaceAbilityData : BaseDataObject
     {
-        /// <summary>
-        /// 种族技能名称
-        /// </summary>
-        public string AbilityName;
-        /// <summary>
-        /// 种族技能描述
-        /// </summary>
-        public string AbilityDescribe;
-
-
+        
+		public string AbilityName = "";	//种族技能名称
+		public string AbilityDescribe = "";	//种族技能描述
+		
         public override void ReadFromStream(BinaryReader br)
         {
-            
+            ID = br.ReadUInt32();	//id
+			AbilityName = br.ReadString();	//种族技能名称
+			AbilityDescribe = br.ReadString();	//种族技能描述
+			
         }
-    }
-}
+    } 
+} 

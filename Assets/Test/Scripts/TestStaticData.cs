@@ -23,11 +23,12 @@ public class TestStaticData : ScriptableObject {
     public List<CareerData> CareerDatas = new List<CareerData>();
     public List<CareerAbilityData> CareerAbilityDatas = new List<CareerAbilityData>();
     public List<LevelData> LevelDatas = new List<LevelData>();
-    public List<MultilingualData> MultilingualDatas = new List<MultilingualData>();
+    public List<StringData> MultilingualDatas = new List<StringData>();
     public List<RaceAbilityData> RaceAbilityDatas = new List<RaceAbilityData>();
     public List<RaceData> RaceDatas = new List<RaceData>();
 
 
     public List<UI.Panel.BattleRoomModel.BattleCharacterModel> BattleCharacterModel = new List<UI.Panel.BattleRoomModel.BattleCharacterModel>();
     public List<UI.Panel.BattleRoomModel.BattleEnemyModel> BattleEnemyModel = new List<UI.Panel.BattleRoomModel.BattleEnemyModel>();
+    public List<UI.Panel.BattleRoomModel.BattleReportModel> BattleReportModel = new List<UI.Panel.BattleRoomModel.BattleReportModel>();
 }

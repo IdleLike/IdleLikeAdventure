@@ -94,6 +94,7 @@ namespace Service
 
             if (battleRoomModel.characterList == null) battleRoomModel.characterList = new List<BattleRoomModel.BattleCharacterModel>();
             if (battleRoomModel.enemyList == null) battleRoomModel.enemyList = new List<BattleRoomModel.BattleEnemyModel>();
+            if (battleRoomModel.ReportQueue == null) battleRoomModel.ReportQueue = new Queue<BattleRoomModel.BattleReportModel>();
 
             for (int i = 0; i < TestStaticData.Instance.BattleCharacterModel.Count; i++)
             {
@@ -120,6 +121,34 @@ namespace Service
                 model.Ability_sprite = TestStaticData.Instance.BattleEnemyModel[i].Ability_sprite;
                 battleRoomModel.enemyList.Add(model);
             }
+            for (int i = 0; i < TestStaticData.Instance.BattleReportModel.Count; i++)
+            {
+                BattleRoomModel.BattleReportModel model = new BattleRoomModel.BattleReportModel();
+                model.DerateDamage = TestStaticData.Instance.BattleReportModel[i].DerateDamage;
+                model.Attacker = TestStaticData.Instance.BattleReportModel[i].Attacker;
+                model.AnAttacker = TestStaticData.Instance.BattleReportModel[i].AnAttacker;
+                model.AbilityName = TestStaticData.Instance.BattleReportModel[i].AbilityName;
+                model.ReportType = TestStaticData.Instance.BattleReportModel[i].ReportType;
+                model.ReportNum = TestStaticData.Instance.BattleReportModel[i].ReportNum;
+                model.IsAOE = TestStaticData.Instance.BattleReportModel[i].IsAOE;
+                model.Gold = TestStaticData.Instance.BattleReportModel[i].Gold;
+                model.Damage = TestStaticData.Instance.BattleReportModel[i].Damage;
+                model.RestCountdown = TestStaticData.Instance.BattleReportModel[i].RestCountdown;
+
+                model.TeamName = TestStaticData.Instance.BattleReportModel[i].TeamName;
+                //model.AdditionalEntry = TestStaticData.Instance.BattleReportModel[i].AdditionalEntry;
+                model.AttackHandleType = TestStaticData.Instance.BattleReportModel[i].AttackHandleType;
+                model.AOEType = TestStaticData.Instance.BattleReportModel[i].AOEType;
+                model.IsSussces = TestStaticData.Instance.BattleReportModel[i].IsSussces;
+                model.BuffList = TestStaticData.Instance.BattleReportModel[i].BuffList;
+                model.EquipmentList = TestStaticData.Instance.BattleReportModel[i].EquipmentList;
+                model.Recovery = TestStaticData.Instance.BattleReportModel[i].Recovery;
+                model.EXP = TestStaticData.Instance.BattleReportModel[i].EXP;
+                model.IsDerateDamage = TestStaticData.Instance.BattleReportModel[i].IsDerateDamage;
+                model.IsGroupAttack = TestStaticData.Instance.BattleReportModel[i].IsGroupAttack;
+                battleRoomModel.ReportQueue.Enqueue(model);
+            }
+
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -81,14 +82,63 @@ namespace UI.Panel
             /// </summary>
             public Action<string> AbilityCallback;
         }
-        public struct BattleReportModel
+        public enum ReportType
         {
-            public ushort damage;
+            Attack,
+            Rest,
+            Result
+        }
+        //public enum AdditionalEntry
+        //{
+        //    AOE,
+        //    Equipment,
+        //    Buff
+        //}
+        [Serializable]
+        public class Equipment
+        {
+            public string name;
+        }
+        [Serializable]
+        public class Buff
+        {
+            public string name;
+        }
+        public enum AttackHandleType
+        {
+            Dodge,
+            Deathblow,
+            Attack
+        }
+        public enum AOEType
+        {
+            Attack,
+            Recovery
+        }
+        [Serializable]
+        public class BattleReportModel
+        {
+            public string TeamName;
+            public bool IsDerateDamage;
+            public ushort DerateDamage;
             public byte Attacker;
             public byte AnAttacker;
-            public uint AbilityID;
-            public string ReportType;
-            public ushort ReportID;
+            public string AbilityName;
+            public ReportType ReportType;
+            //public AdditionalEntry AdditionalEntry;
+            public AttackHandleType AttackHandleType;
+            public AOEType AOEType;
+            public bool IsAOE;
+            public bool IsGroupAttack;
+            public bool IsSussces;
+            public ushort ReportNum;
+            public ushort Gold;
+            public ushort Damage;
+            public byte RestCountdown;
+            public List<Buff> BuffList;
+            public List<Equipment> EquipmentList;
+            public ushort Recovery;
+            public uint EXP;
         }
 
         /// <summary>
@@ -112,7 +162,7 @@ namespace UI.Panel
         /// <summary>
         /// 战报集合
         /// </summary>
-        public Stack<BattleReportModel> reportStack { get; set; }
+        public Queue<BattleReportModel> ReportQueue { get; set; }
     }
     public class BattleRoomPanel : BaseUIForm
     {
@@ -367,23 +417,31 @@ namespace UI.Panel
 
         private bool IsInit = false;
 
+
         private string m_DerateDamageInfoTemplete = "，对方减免了{0}伤害";
         private string m_NormalAttackInfoTemplete = "{0}.{1}攻击了{2}";
-        private string m_SkillInfoTemplete = "{0}.{1}使用技能{2}攻击了{3}";
-        private string m_AOEInfoTemplete = "{0}受到{1}AOE伤害";
-        private string m_DodgeInfoTemplete = "，但被对方闪避，{4}没有受到直接伤害";
+        private string m_SkillInfoTemplete = "{0}.{1}使用技能{2}，攻击了{3}";
+        private string m_AOEInfoTemplete = "\n{0}受到{1}AOE伤害";
+        private string m_DodgeInfoTemplete = "，但被对方闪避，{0}没有受到直接伤害";
         private string m_RestInfoTemplete = "战斗刚结束，正在休息恢复中，并搜寻敌人...({0})";
-        private string m_SuccessResultInfoTemplete = "团队收获金币{0}g/n{1}获得了经验{2}Exp/n{3}获得了经验{4}Exp/n{5}获得了{6}Exp/n/n敌方被击败，战斗结束...";
-        private string m_FailureResultInfoTemplete = "";
+        private string m_SuccessResultInfoTemplete = "\n敌方被击败，战斗结束...\n";
+        private string m_GetGoldInfoTemplete = "\n团队收获金币{0}g\n\n";
+        private string m_GetEquipmentInfoTemplete = "得到装备.[{0}]\n";
+        private string m_GetEXPInfoTemplete = "{0}获得了经验{1}Exp\n";
+        private string m_FailureResultInfoTemplete = "{0}被击败，战斗结束...";
         private string m_DeathblowInfoTemplete = "，触发了致命一击";
-        private string m_DamageInfoTemplete = "，造成了{3}伤害";
+        private string m_DamageInfoTemplete = "，造成了{0}伤害";
 
 
         private string m_BuffInfoTemplete = "{0} {1}，受到伤害{2}，持续{3}轮";
         private string m_BeatInfoTemplete = "{0}被击败了";
-       
-        private string m_RecoveryInfoTemplete = "，恢复了自己{2}HP，{3}没有受到直接伤害";
+
+        private string m_RecoveryInfoTemplete = "{0}.{1}使用技能{2}，恢复了自己{3}HP，{4}没有受到直接伤害";
         private string m_GroupRecoveryInfoTemplete = "{0}恢复了{1}HP";
+
+
+
+
         /// <summary>
         /// 初始化战斗信息
         /// </summary>
@@ -399,14 +457,21 @@ namespace UI.Panel
 
             if (IsInit)
             {
-                if (BattleModel.reportStack != null)
+                Debug.Log("已经初始化");
+                if (BattleModel.ReportQueue != null && BattleModel.ReportQueue.Count > 0)
                 {
-                    CurrentBattleReport = BattleModel.reportStack.Pop();
+                    Debug.Log("战报不等于空");
+                    CurrentBattleReport = BattleModel.ReportQueue.Dequeue();
                     InitReportInfo(BattleModel, CurrentBattleReport);
+                }
+                else
+                {
+                    return;
                 }
             }
             else
             {
+                Debug.Log("第一次初始化");
                 MapName_Txt.text = BattleModel.MapName;
                 RoomName_Txt.text = BattleModel.RoomName;
 
@@ -417,40 +482,243 @@ namespace UI.Panel
 
         private void InitReportInfo(BattleRoomModel battleModel, BattleRoomModel.BattleReportModel CurrentBattleReport)
         {
-            Text ReportGo;
-            Text Report;
+
             switch (CurrentBattleReport.ReportType)
             {
-                case "Attack":
+                case BattleRoomModel.ReportType.Attack:
+                    Debug.Log("攻击战报");
                     if (Content_Tra != null)
                     {
-                        ReportGo = Resources.Load("UI/Battle/AttackReport") as Text;
-                        ReportGo.text = string.Format(  m_NormalAttackInfoTemplete, CurrentBattleReport.ReportID, 
-                                                        GetAttacker(battleModel, CurrentBattleReport), 
-                                                        GetAnAttacker(battleModel, CurrentBattleReport), 
-                                                        CurrentBattleReport.damage);
+
+                        GameObject m_ReportGoParent = ResourcesMgr.GetInstance().LoadResource<GameObject>("Prefab/UI/Battle/AttackReport", false);
+
+                        GameObject m_ReportParent = Instantiate(m_ReportGoParent);
+                        Text m_Report = UnityHelper.GetTheChildNodeComponetScripts<Text>(m_ReportParent, "AttackReport_Txt");
+                        string m_Info;
+                        if (!CurrentBattleReport.IsAOE)
+                        {
+                            switch (CurrentBattleReport.AttackHandleType)
+                            {
+                                case BattleRoomModel.AttackHandleType.Dodge:
+                                    m_Report.text = string.Format(m_NormalAttackInfoTemplete,
+                                                          CurrentBattleReport.ReportNum,
+                                                          GetAttacker(battleModel, CurrentBattleReport),
+                                                          GetAnAttacker(battleModel, CurrentBattleReport)) +
+                                                          string.Format(m_DodgeInfoTemplete, GetAnAttacker(battleModel, CurrentBattleReport));
+                                    break;
+                                case BattleRoomModel.AttackHandleType.Deathblow:
+                                    m_Info = string.Format(m_NormalAttackInfoTemplete,
+                                                         CurrentBattleReport.ReportNum,
+                                                         GetAttacker(battleModel, CurrentBattleReport),
+                                                         GetAnAttacker(battleModel, CurrentBattleReport)) +
+                                                         string.Format(m_DeathblowInfoTemplete) +
+                                                         string.Format(m_DamageInfoTemplete,
+                                                                          CurrentBattleReport.Damage);
+                                    m_Report.text = m_Info;
+                                    if (CurrentBattleReport.IsDerateDamage)
+                                    {
+                                        m_Report.text = m_Info + string.Format(m_DerateDamageInfoTemplete, CurrentBattleReport.DerateDamage);
+                                    }
+                                    break;
+                                case BattleRoomModel.AttackHandleType.Attack:
+                                    m_Info = string.Format(m_NormalAttackInfoTemplete,
+                                                          CurrentBattleReport.ReportNum,
+                                                          GetAttacker(battleModel, CurrentBattleReport),
+                                                          GetAnAttacker(battleModel, CurrentBattleReport)) +
+                                                          string.Format(m_DamageInfoTemplete,
+                                                                          CurrentBattleReport.Damage);
+                                    m_Report.text = m_Info;
+                                    if (CurrentBattleReport.IsDerateDamage)
+                                    {
+                                        m_Report.text = m_Info + string.Format(m_DerateDamageInfoTemplete, CurrentBattleReport.DerateDamage);
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            switch (CurrentBattleReport.AttackHandleType)
+                            {
+                                case BattleRoomModel.AttackHandleType.Dodge:
+                                    m_Report.text = string.Format(m_SkillInfoTemplete,
+                                                          CurrentBattleReport.ReportNum,
+                                                          GetAttacker(battleModel, CurrentBattleReport),
+                                                          CurrentBattleReport.AbilityName,
+                                                          GetAnAttacker(battleModel, CurrentBattleReport)) +
+                                                          string.Format(m_DodgeInfoTemplete, GetAnAttacker(battleModel, CurrentBattleReport));
+                                    break;
+                                case BattleRoomModel.AttackHandleType.Deathblow:
+                        
+                                    sb.Append(string.Format(m_SkillInfoTemplete,
+                                                         CurrentBattleReport.ReportNum,
+                                                         GetAttacker(battleModel, CurrentBattleReport),
+                                                         CurrentBattleReport.AbilityName,
+                                                         GetAnAttacker(battleModel, CurrentBattleReport)) +
+                                                         string.Format(m_DeathblowInfoTemplete) +
+                                                         string.Format(m_DamageInfoTemplete,
+                                                                          CurrentBattleReport.Damage));
+                                    m_Report.text = sb.ToString();
+                                    if (CurrentBattleReport.IsDerateDamage)
+                                    {
+                                        m_Report.text = sb.Append(string.Format(m_DerateDamageInfoTemplete, CurrentBattleReport.DerateDamage)).ToString();
+                                    }
+                                    if (CurrentBattleReport.IsGroupAttack)
+                                    {
+                                        List<BattleRoomModel.BattleCharacterModel> CharacterModelList = GetTeam(battleModel, battleModel.characterList, CurrentBattleReport);
+                                        List<BattleRoomModel.BattleEnemyModel> EnemyModelList = GetTeam(battleModel, battleModel.enemyList, CurrentBattleReport);
+                                        if (CharacterModelList.Count > 0 && CharacterModelList != null)
+                                        {
+                                            for (int i = 0; i < CharacterModelList.Count; i++)
+                                            {
+                                                Debug.Log(CharacterModelList[i].Name);
+                                                m_Report.text = sb.Append(
+                                                    string.Format(m_AOEInfoTemplete, CharacterModelList[i].Name, CurrentBattleReport.Damage)).ToString();
+                                            }
+                                        }
+                                        else if (EnemyModelList.Count > 0 && EnemyModelList != null)
+                                        {
+                                            for (int i = 0; i < EnemyModelList.Count; i++)
+                                            {
+                                                m_Report.text = sb.Append(
+                                                    string.Format(m_AOEInfoTemplete, EnemyModelList[i].Name, CurrentBattleReport.Damage)).ToString();
+                                            }
+                                        }
+                                    }
+
+                                    break;
+                                case BattleRoomModel.AttackHandleType.Attack:
+  
+                                    switch (CurrentBattleReport.AOEType)
+                                    {
+                                        case BattleRoomModel.AOEType.Attack:
+                                            sb.Append(string.Format(m_SkillInfoTemplete,
+                                                        CurrentBattleReport.ReportNum,
+                                                        GetAttacker(battleModel, CurrentBattleReport),
+                                                        CurrentBattleReport.AbilityName,
+                                                        GetAnAttacker(battleModel, CurrentBattleReport)) +
+                                                        string.Format(m_DamageInfoTemplete,
+                                                                        CurrentBattleReport.Damage));
+                                            m_Report.text = sb.ToString();
+                                            if (CurrentBattleReport.IsDerateDamage)
+                                            {
+                                                m_Report.text = sb.Append(string.Format(m_DerateDamageInfoTemplete, CurrentBattleReport.DerateDamage)).ToString(); ;
+                                            }
+                                            if (CurrentBattleReport.IsGroupAttack)
+                                            {
+                                                List<BattleRoomModel.BattleCharacterModel> CharacterModelList = GetTeam(battleModel, battleModel.characterList, CurrentBattleReport);
+                                                List<BattleRoomModel.BattleEnemyModel> EnemyModelList = GetTeam(battleModel, battleModel.enemyList, CurrentBattleReport);
+                                                if (CharacterModelList.Count > 0 && CharacterModelList != null)
+                                                {
+                                                    for (int i = 0; i < CharacterModelList.Count; i++)
+                                                    {
+                                                        Debug.Log(CharacterModelList[i].Name);
+                                                        m_Report.text = sb.Append(
+                                                            string.Format(m_AOEInfoTemplete, CharacterModelList[i].Name, CurrentBattleReport.Damage)).ToString();
+                                                    }
+                                                }
+                                                else if (EnemyModelList.Count > 0 && EnemyModelList != null)
+                                                {
+                                                    for (int i = 0; i < EnemyModelList.Count; i++)
+                                                    {
+                                                        m_Report.text = sb.Append(
+                                                            string.Format(m_AOEInfoTemplete, EnemyModelList[i].Name, CurrentBattleReport.Damage)).ToString();
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case BattleRoomModel.AOEType.Recovery:
+                                            m_Report.text = string.Format(m_RecoveryInfoTemplete,
+                                                        CurrentBattleReport.ReportNum,
+                                                        GetAttacker(battleModel, CurrentBattleReport),
+                                                        CurrentBattleReport.AbilityName,
+                                                        CurrentBattleReport.Recovery,
+                                                        GetAnAttacker(battleModel, CurrentBattleReport));
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        Text Data = UnityHelper.GetTheChildNodeComponetScripts<Text>(m_ReportParent, "Data_Txt");
+                        Data.text = DateTime.Now.ToString();
                         //扣血
-                        Report = Instantiate(ReportGo);
-                        Report.transform.parent = Content_Tra.transform;
-                        Report.transform.SetAsFirstSibling();
+                        m_ReportParent.GetComponent<RectTransform>().sizeDelta = new Vector2(m_Report.rectTransform.rect.width, m_Report.preferredHeight + Data.preferredHeight);
+                        m_ReportParent.transform.parent = Content_Tra.transform;
+
+                        m_ReportParent.transform.localScale = Content_Tra.transform.localScale;
+                        m_ReportParent.transform.SetAsFirstSibling();
                     }
                     break;
-                case "Result":
+                case BattleRoomModel.ReportType.Result:
+                    Debug.Log("结束战报");
                     if (Content_Tra != null)
                     {
-                        ReportGo = Resources.Load("UI/Battle/RestReport") as Text;
-                        ReportGo.text = CurrentBattleReport.ReportID.ToString() + ":" + GetAttacker(battleModel, CurrentBattleReport) + "攻击了" + GetAnAttacker(battleModel, CurrentBattleReport);
-                        Report = Instantiate(ReportGo);
-                        Report.transform.parent = Content_Tra.transform;
+                        GameObject m_ReportGoParent = ResourcesMgr.GetInstance().LoadResource<GameObject>("Prefab/UI/Battle/ResultReport", false);
+                        GameObject m_ReportParent = Instantiate(m_ReportGoParent);
+                        Text m_Report = UnityHelper.GetTheChildNodeComponetScripts<Text>(m_ReportParent, "ResultReport_Txt");
+                        if (CurrentBattleReport.IsSussces)
+                        {
+                            //扣血
+                            StringBuilder sb = new StringBuilder();
+
+                            if (CurrentBattleReport.EquipmentList.Count > 0)
+                            {
+                                for (int i = 0; i < CurrentBattleReport.EquipmentList.Count; i++)
+                                {
+                                    sb.Append(string.Format(m_GetEquipmentInfoTemplete, CurrentBattleReport.EquipmentList[i].name));
+                                }
+                            }
+                            if (CurrentBattleReport.Gold > 0)
+                            {
+                                sb.Append(string.Format(m_GetGoldInfoTemplete, CurrentBattleReport.Gold));
+                            }
+                            if (battleModel.characterList != null)
+                            {
+                                for (int i = 0; i < battleModel.characterList.Count; i++)
+                                {
+                                    sb.Append(string.Format(m_GetEXPInfoTemplete, battleModel.characterList[i].Name, CurrentBattleReport.EXP));
+                                }
+                            }
+                            sb.Append(m_SuccessResultInfoTemplete);
+                            m_Report.text = sb.ToString();
+                        }
+                        else
+                        {
+                            m_Report.text = string.Format(m_FailureResultInfoTemplete, CurrentBattleReport.TeamName);
+                        }
+                        Debug.Log("m_Report.rectTransform.rect.height = " + m_Report.preferredHeight);
+                        Debug.Log("m_ReportParent.GetComponent<RectTransform>().rect.height) = " + m_ReportParent.GetComponent<RectTransform>().rect.height);
+
+                        m_ReportParent.transform.parent = Content_Tra.transform;
+                        m_ReportParent.transform.localScale = m_ReportParent.transform.parent.transform.localScale;
+                        m_ReportParent.GetComponent<RectTransform>().sizeDelta = new Vector2(m_Report.rectTransform.rect.width, m_Report.preferredHeight);
+                        m_ReportParent.transform.SetAsFirstSibling();
+                        Debug.Log("m_Report.rectTransform.rect.height = " + m_Report.rectTransform.rect.height + m_Report.name);
+                        Debug.Log("m_ReportParent.GetComponent<RectTransform>().rect.height) = " + m_ReportParent.GetComponent<RectTransform>().rect.height + m_ReportParent.name);
                     }
                     break;
-                case "Rest":
+                case BattleRoomModel.ReportType.Rest:
+                    Debug.Log("休息战报");
                     if (Content_Tra != null)
                     {
-                        ReportGo = Resources.Load("UI/Battle/ResultReport") as Text;
-                        ReportGo.text = CurrentBattleReport.ReportID.ToString() + ":" + GetAttacker(battleModel, CurrentBattleReport) + "攻击了" + GetAnAttacker(battleModel, CurrentBattleReport);
-                        Report = Instantiate(ReportGo);
-                        Report.transform.parent = Content_Tra.transform;
+                        GameObject m_ReportGoParent = ResourcesMgr.GetInstance().LoadResource<GameObject>("Prefab/UI/Battle/RestReport", false);
+                        GameObject m_ReportParent = Instantiate(m_ReportGoParent);
+                        Text m_Report = UnityHelper.GetTheChildNodeComponetScripts<Text>(m_ReportParent, "RestReport_Txt");
+
+                        m_Report.text = string.Format(m_RestInfoTemplete, CurrentBattleReport.RestCountdown);
+
+                        //扣血
+                        m_ReportParent.GetComponent<RectTransform>().sizeDelta = new Vector2(m_Report.rectTransform.rect.width, m_Report.rectTransform.rect.height);
+                        m_ReportParent.transform.parent = Content_Tra.transform;
+                        m_ReportParent.transform.localScale = m_ReportParent.transform.parent.transform.localScale;
+                        m_ReportParent.transform.SetAsFirstSibling();
                     }
                     break;
                 default:
@@ -477,7 +745,48 @@ namespace UI.Panel
             }
             return String.Empty;
         }
+        private List<BattleRoomModel.BattleCharacterModel> GetTeam(BattleRoomModel battleModle, List<BattleRoomModel.BattleCharacterModel> list, BattleRoomModel.BattleReportModel CurrentBattleReport)
+        {
 
+            List<BattleRoomModel.BattleCharacterModel> m_CharacterModelList = list.FindAll(p => p.ID == CurrentBattleReport.AnAttacker);
+            if (m_CharacterModelList != null && m_CharacterModelList.Count > 0)
+            {
+                List<BattleRoomModel.BattleCharacterModel> modle = battleModle.characterList;
+                for (int i = 0; i < m_CharacterModelList.Count; i++)
+                {
+                    modle.Remove(m_CharacterModelList[i]);
+                }
+                
+                Debug.Log(modle.Count);
+                foreach (var item in modle)
+                {
+                    Debug.Log(item.Name);
+                }
+                return modle;
+            }
+            return null;
+        }
+        private List<BattleRoomModel.BattleEnemyModel> GetTeam(BattleRoomModel battleModle, List<BattleRoomModel.BattleEnemyModel> list, BattleRoomModel.BattleReportModel CurrentBattleReport)
+        {
+
+            List<BattleRoomModel.BattleEnemyModel> m_EnemyModelList = list.FindAll(p => p.ID == CurrentBattleReport.AnAttacker);
+            if (m_EnemyModelList != null && m_EnemyModelList.Count > 0)
+            {
+                List<BattleRoomModel.BattleEnemyModel> modle = battleModle.enemyList;
+                for (int i = 0; i < m_EnemyModelList.Count; i++)
+                {
+                    modle.Remove(m_EnemyModelList[i]);
+                }
+
+                Debug.Log(modle.Count);
+                foreach (var item in modle)
+                {
+                    Debug.Log(item.Name);
+                }
+                return modle;
+            }
+            return null;
+        }
         private string GetAttacker(BattleRoomModel battleModel, BattleRoomModel.BattleReportModel CurrentBattleReport)
         {
             foreach (var item in battleModel.characterList)
@@ -540,10 +849,10 @@ namespace UI.Panel
                 CharacterUIInfoList[i].RocaName_Txt.text = model.characterList[i].RocaName;
                 CharacterUIInfoList[i].Career_Txt.text = model.characterList[i].Career;
                 CharacterUIInfoList[i].Level_Txt.text = model.characterList[i].Level.ToString();
-                CharacterUIInfoList[i].HP_Sli.value = Mathf.Clamp(model.characterList[i].CurrentHP,0, model.characterList[i].MaxHP) / (float)model.characterList[i].MaxHP;
-                CharacterUIInfoList[i].MP_Sli.value = Mathf.Clamp(model.characterList[i].CurrentMP_Txt, 0, model.characterList[i].MaxMP_Txt) / (float)model.characterList[i].MaxMP_Txt; 
+                CharacterUIInfoList[i].HP_Sli.value = Mathf.Clamp(model.characterList[i].CurrentHP, 0, model.characterList[i].MaxHP) / (float)model.characterList[i].MaxHP;
+                CharacterUIInfoList[i].MP_Sli.value = Mathf.Clamp(model.characterList[i].CurrentMP_Txt, 0, model.characterList[i].MaxMP_Txt) / (float)model.characterList[i].MaxMP_Txt;
                 CharacterUIInfoList[i].CurrentHP_Txt.text = model.characterList[i].CurrentHP.ToString();
-                CharacterUIInfoList[i].MaxHP_Txt.text =  model.characterList[i].MaxHP.ToString();
+                CharacterUIInfoList[i].MaxHP_Txt.text = model.characterList[i].MaxHP.ToString();
             }
             IsInit = true;
         }
@@ -569,19 +878,26 @@ namespace UI.Panel
             IsInit = true;
         }
 
-
+        BattleRoomModel battleRoomModel;
         public override void UpdatePanel(object viewModel)
         {
+            battleRoomModel = (BattleRoomModel)viewModel;
             InitBattleInfo(viewModel);
         }
 
         public void Test()
         {
-            BattleRoomModel battleRoomModel = new BattleRoomModel();
+            StartCoroutine(Execute());
 
             //赋值数据
 
-            UpdatePanel(battleRoomModel);
+
+        }
+
+        private IEnumerator Execute()
+        {
+            yield return new WaitForSeconds(1);
+            InitBattleInfo(battleRoomModel);
         }
     }
 }

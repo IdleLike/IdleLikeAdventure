@@ -25,12 +25,22 @@ namespace StaticData
         }
 
         // *************				data	 	***************
-		public Dictionary<ushort, TestListData> mTestListDataMap = new Dictionary<ushort, TestListData>(); //TestList Data
+		public Dictionary<ushort, CareerData> mCareerDataMap = new Dictionary<ushort, CareerData>(); //Career Data
+		public Dictionary<ushort, CareerAbilityData> mCareerAbilityDataMap = new Dictionary<ushort, CareerAbilityData>(); //CareerAbility Data
+		public Dictionary<ushort, LevelData> mLevelDataMap = new Dictionary<ushort, LevelData>(); //Level Data
+		public Dictionary<ushort, RaceData> mRaceDataMap = new Dictionary<ushort, RaceData>(); //Race Data
+		public Dictionary<ushort, RaceAbilityData> mRaceAbilityDataMap = new Dictionary<ushort, RaceAbilityData>(); //RaceAbility Data
+		public Dictionary<ushort, TestData> mTestDataMap = new Dictionary<ushort, TestData>(); //Test Data
 
         //加载数据
         public void LoadData()
         {
-			LoadDataBinWorker<TestListData>("TestList.bytes", mTestListDataMap); //TestList Data
+			LoadDataBinWorker<CareerData>("Career.bytes", mCareerDataMap); //Career Data
+			LoadDataBinWorker<CareerAbilityData>("CareerAbility.bytes", mCareerAbilityDataMap); //CareerAbility Data
+			LoadDataBinWorker<LevelData>("Level.bytes", mLevelDataMap); //Level Data
+			LoadDataBinWorker<RaceData>("Race.bytes", mRaceDataMap); //Race Data
+			LoadDataBinWorker<RaceAbilityData>("RaceAbility.bytes", mRaceAbilityDataMap); //RaceAbility Data
+			LoadDataBinWorker<TestData>("Test.bytes", mTestDataMap); //Test Data
 
 						
 			//定义如型： void SheetNameDataProcess(ClassType data) 的函数, 会被自动调用

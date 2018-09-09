@@ -24,7 +24,7 @@ for %%f in (*.bytes) do (
 echo %%f
 )
 cd %CODEDIR%
-for %%f in (*.bytes) do ( 
+for %%f in (*.cs) do ( 
 
     move %CODEDIR%\%%f %ToCodeDIR%\%%f
 
