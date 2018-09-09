@@ -8,7 +8,20 @@ namespace Entity
     [Serializable]
     public class BaseEntity
     {
-        public int ID;
+        private int id;
+
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+
+            protected set
+            {
+                id = value;
+            }
+        }
     }
 }
 
