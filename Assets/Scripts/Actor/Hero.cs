@@ -160,21 +160,29 @@ public class Hero : BaseActor
         get
         {
             //TODO 实现根据总经验，计算等级
-            LevelData LevelData = new LevelData();
-            LevelData LevelDataNext = new LevelData();
-            for (uint i = 0; i < StaticDataMgr.mInstance.mLevelDataMap.Count; i++)
+            for (uint i = 1; i <= StaticDataMgr.mInstance.mLevelDataMap.Count; i++)
             {
-                if(Exp > StaticDataMgr.mInstance.mLevelDataMap[i].NextLevelNeedExp + StaticDataMgr.mInstance.mLevelDataMap[i].CurrentLevelNeedExp 
-                    && Exp < StaticDataMgr.mInstance.mLevelDataMap[i+1].NextLevelNeedExp + StaticDataMgr.mInstance.mLevelDataMap[i+1].CurrentLevelNeedExp
-                    && StaticDataMgr.mInstance.mLevelDataMap[i + 1].NextLevelNeedExp != 0)
-                StaticDataMgr.mInstance.mLevelDataMap.TryGetValue(i, out LevelData);
-                StaticDataMgr.mInstance.mLevelDataMap.TryGetValue(i + 1, out LevelData);
-                if (Exp > LevelData.NextLevelNeedExp + LevelData.CurrentLevelNeedExp && Exp < LevelDataNext.NextLevelNeedExp + LevelDataNext.CurrentLevelNeedExp)
+                if (Exp >= StaticDataMgr.mInstance.mLevelDataMap[i].CurrentLevelNeedExp
+                    && StaticDataMgr.mInstance.mLevelDataMap[i].NextLevelNeedExp == 0)
                 {
-                    return (int)i;
+                    return StaticDataMgr.mInstance.mLevelDataMap[i].Level;
                 }
-            }
-     
+                if (Exp < StaticDataMgr.mInstance.mLevelDataMap[i + 1].CurrentLevelNeedExp)
+                {
+                    return StaticDataMgr.mInstance.mLevelDataMap[i].Level;
+                }
+
+                //if (Exp >= StaticDataMgr.mInstance.mLevelDataMap[i].CurrentLevelNeedExp 
+                //    && StaticDataMgr.mInstance.mLevelDataMap[i].NextLevelNeedExp == 0)
+                //{
+                //    return StaticDataMgr.mInstance.mLevelDataMap[i].Level;
+                //}
+                //else if(Exp >= StaticDataMgr.mInstance.mLevelDataMap[i].CurrentLevelNeedExp 
+                //    && Exp < StaticDataMgr.mInstance.mLevelDataMap[i].CurrentLevelNeedExp + StaticDataMgr.mInstance.mLevelDataMap[i].NextLevelNeedExp)
+                //{
+                //    return StaticDataMgr.mInstance.mLevelDataMap[i].Level;
+                //}
+            }     
             return 0;
         }
     }
