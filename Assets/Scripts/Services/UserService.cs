@@ -71,10 +71,9 @@ namespace Service
         //  创建用户
         private void Create(CreateCharacterPanel.CreateData obj)
         {
-            //创建用户
+            //创建用户， 想数据库填入用户数据
 
-
-            //初始化数据
+            //为用户创建英雄
 
             //跳转页面
 

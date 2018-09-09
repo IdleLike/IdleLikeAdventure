@@ -23,5 +23,5 @@ public class TestDB : ScriptableObject {
 
     public List<UserEntity> Users = new List<UserEntity>();
 
-
+    public List<HeroEntity> Heros = new List<HeroEntity>();
 }
