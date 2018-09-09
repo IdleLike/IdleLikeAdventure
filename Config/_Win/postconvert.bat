@@ -2,6 +2,7 @@ echo off & color 0A
 ::指定起始文件夹
 set DIR="./../Output/Bin_C"
 echo DIR=%DIR%
+::指定起始文件夹 Byte文件目标文件夹
 set ToDIR="./../../Assets/Resources/Configs/Bytes"
 echo ToDIR=%ToDIR%
 
