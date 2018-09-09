@@ -3,13 +3,13 @@ using System.IO;
 
 namespace StaticData.Data
 {
-    public class StringData
+    public class StringData : BaseDataStringIDObject
     {
         public string ID;
         public string EN;
         public string CN;
 
-        public void ReadFromStream(BinaryReader br)
+        public override void ReadFromStream(BinaryReader br)
         {
             ID = br.ReadString();
             EN = br.ReadString();
