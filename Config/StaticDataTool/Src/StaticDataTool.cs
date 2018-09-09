@@ -446,7 +446,7 @@ namespace StaticDataTool
                     if (sheet.mName.Equals("String")) continue;
                     if (strDataDefine != "")
                         strDataDefine += "\t\t";
-                    strDataDefine += "public Dictionary<ushort, " + sheet.mName + "Data> m" + sheet.mName + "DataMap = new Dictionary<ushort, " + sheet.mName + "Data>(); //" + sheet.mName + " Data\r\n";
+                    strDataDefine += "public Dictionary<uint, " + sheet.mName + "Data> m" + sheet.mName + "DataMap = new Dictionary<uint, " + sheet.mName + "Data>(); //" + sheet.mName + " Data\r\n";
                 }
                 finalContent = finalContent.Replace("{$DataDefine}", strDataDefine);
 
