@@ -126,6 +126,11 @@ namespace StaticData
         public uint ID = 0; // ID
         public abstract void ReadFromStream(BinaryReader br);
     }
+    public abstract class BaseDataStringIDObject
+    {
+        public uint ID = 0; // ID
+        public abstract void ReadFromStream(BinaryReader br);
+    }
     
   /*  public class StringMgr
     {
