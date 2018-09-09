@@ -158,7 +158,7 @@ namespace StaticDataTool
                 {//数字型
                     if (i == 0)
                     {//ID列，特殊处理
-                        sheet.mVarNames[i] = "mID";
+                        sheet.mVarNames[i] = "ID";
                     }
                     else
                         memberVars += "public " + curTypeStr + " " + sheet.mVarNames[i] + " = 0;\t//" + sheet.mComments[i];
