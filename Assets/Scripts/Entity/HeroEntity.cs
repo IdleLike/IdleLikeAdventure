@@ -18,6 +18,7 @@ namespace Entity
         //  配置信息
         private CareerData careerData;
         private RaceData raceData;
+
         //  技能数据
         private List<RaceAbilityData> raceAbilitys;
         private List<CareerAbilityData> careerAbilities;
