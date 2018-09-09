@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Entity;
 using UnityEngine;
 
 namespace Service
@@ -12,9 +13,10 @@ namespace Service
         /// <param name="userID">User identifier.</param>
         /// <param name="heroConfigID">Hero config identifier.</param>
         /// <param name="heroName">Hero name.</param>
-        public void CreateHero(int userID, uint heroConfigID, string heroName)
+        public HeroEntity CreateHero(int userID, uint heroConfigID, string heroName)
         {
-            
+            //TODO 为玩家创建英雄
+            return null;   
         }
     }
 }
