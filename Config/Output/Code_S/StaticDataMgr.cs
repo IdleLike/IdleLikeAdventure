@@ -25,12 +25,12 @@ namespace StaticData
         }
 
         // *************				data	 	***************
-		public Dictionary<ushort, CareerData> mCareerDataMap = new Dictionary<ushort, CareerData>(); //Career Data
-		public Dictionary<ushort, CareerAbilityData> mCareerAbilityDataMap = new Dictionary<ushort, CareerAbilityData>(); //CareerAbility Data
-		public Dictionary<ushort, LevelData> mLevelDataMap = new Dictionary<ushort, LevelData>(); //Level Data
-		public Dictionary<ushort, RaceData> mRaceDataMap = new Dictionary<ushort, RaceData>(); //Race Data
-		public Dictionary<ushort, RaceAbilityData> mRaceAbilityDataMap = new Dictionary<ushort, RaceAbilityData>(); //RaceAbility Data
-		public Dictionary<ushort, TestData> mTestDataMap = new Dictionary<ushort, TestData>(); //Test Data
+		public Dictionary<uint, CareerData> mCareerDataMap = new Dictionary<uint, CareerData>(); //Career Data
+		public Dictionary<uint, CareerAbilityData> mCareerAbilityDataMap = new Dictionary<uint, CareerAbilityData>(); //CareerAbility Data
+		public Dictionary<uint, LevelData> mLevelDataMap = new Dictionary<uint, LevelData>(); //Level Data
+		public Dictionary<uint, RaceData> mRaceDataMap = new Dictionary<uint, RaceData>(); //Race Data
+		public Dictionary<uint, RaceAbilityData> mRaceAbilityDataMap = new Dictionary<uint, RaceAbilityData>(); //RaceAbility Data
+		public Dictionary<uint, TestData> mTestDataMap = new Dictionary<uint, TestData>(); //Test Data
 
         //加载数据
         public void LoadData()
