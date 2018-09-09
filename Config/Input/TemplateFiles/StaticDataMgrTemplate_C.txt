@@ -88,7 +88,7 @@ namespace StaticData
             return;
         }
 
-        void LoadDataBinWorkerString<ClassType>(string filename, object dic, Action<ClassType> process = null) where ClassType : BaseDataObject, new()
+        void LoadDataBinWorkerString<ClassType>(string filename, object dic, Action<ClassType> process = null) where ClassType : BaseDataStringIDObject, new()
         {
             Dictionary<string, ClassType> dataMap = dic as Dictionary<string, ClassType>;
 
