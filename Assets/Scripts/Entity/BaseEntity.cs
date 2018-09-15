@@ -8,7 +8,7 @@ namespace Entity
     [Serializable]
     public class BaseEntity
     {
-        public int id;
+        public int ID;
 
 
     }
