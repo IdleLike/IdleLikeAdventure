@@ -8,6 +8,8 @@ using UnityEngine;
 public class Hero : BaseActor
 {
 
+    //  正常属性
+    private string name;
     //  战斗属性
     private int maxHP;
     private int maxMP;
@@ -155,7 +157,7 @@ public class Hero : BaseActor
     }
 
 
-    public int Level
+    public uint Level
     {
         get
         {
@@ -184,6 +186,19 @@ public class Hero : BaseActor
                 //}
             }     
             return 0;
+        }
+    }
+
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+
+        set
+        {
+            name = value;
         }
     }
 }

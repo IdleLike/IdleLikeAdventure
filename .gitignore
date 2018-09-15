@@ -2,9 +2,11 @@
 Library/
 obj/
 Temp/
+Config/Output/
 .DS_Store
 Assembly-CSharp.csproj
 Assets/.DS_Store
 Config/_Mac/.DS_Store
 Assembly-CSharp.csproj
 Assets/.DS_Store
+

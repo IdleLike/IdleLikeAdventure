@@ -13,7 +13,7 @@ namespace Actor
                 return id;
             }
 
-            protected set
+            set
             {
                 id = value;
             }

@@ -72,16 +72,16 @@
   <Names>
    <NamedRange ss:Name="_FilterDatabase" ss:RefersTo="=strings!#REF!" ss:Hidden="1"/>
   </Names>
-  <Table ss:ExpandedColumnCount="11" ss:ExpandedRowCount="3" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="12" ss:ExpandedRowCount="3" x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="0"
    ss:DefaultRowHeight="11.25">
    <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="54"/>
    <Column ss:StyleID="s62" ss:Width="64.8" ss:Span="1"/>
    <Column ss:Index="4" ss:StyleID="s62" ss:Width="69.599999999999994"/>
    <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="123"/>
-   <Column ss:StyleID="s62" ss:Width="79.800000000000011" ss:Span="1"/>
-   <Column ss:Index="8" ss:StyleID="s62" ss:Width="84.600000000000009" ss:Span="2"/>
-   <Column ss:Index="11" ss:StyleID="s62" ss:Width="115.2"/>
+   <Column ss:StyleID="s62" ss:Width="79.800000000000011" ss:Span="2"/>
+   <Column ss:Index="9" ss:StyleID="s62" ss:Width="84.600000000000009" ss:Span="2"/>
+   <Column ss:Index="12" ss:StyleID="s62" ss:Width="115.2"/>
    <Row ss:AutoFitHeight="0" ss:Height="10.95" ss:StyleID="s63">
     <Cell><Data ss:Type="String">ID</Data></Cell>
     <Cell><Data ss:Type="String">父级职业ID</Data></Cell>
@@ -92,6 +92,7 @@
          html:Size="9" html:Color="#000000">罗冲:</Font></B><Font html:Size="9"
         html:Color="#000000">&#10;其他表格中引用字符串时，写这个</Font></ss:Data></Comment></Cell>
     <Cell ss:StyleID="s64"><Data ss:Type="String">职业描述</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">职业魔法成长</Data></Cell>
     <Cell ss:StyleID="s64"><Data ss:Type="String">职业血量成长</Data></Cell>
     <Cell ss:StyleID="s64"><Data ss:Type="String">职业力量成长</Data></Cell>
     <Cell><Data ss:Type="String">职业敏捷成长</Data></Cell>
@@ -105,6 +106,7 @@
     <Cell ss:StyleID="s65"><Data ss:Type="String">byte|MaxLevel</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">string|Name</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">string|Describe</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">ushort|MPGrowth</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">ushort|HPGrowth</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">ushort|PowGrowth</Data></Cell>
     <Cell><Data ss:Type="String">ushort|DexGrowth</Data></Cell>
@@ -112,6 +114,7 @@
     <Cell><Data ss:Type="String">List&lt;uint&gt;|AbilityList</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="10.95">
+    <Cell ss:StyleID="s65"><Data ss:Type="String">both</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">both</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">both</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">both</Data></Cell>
@@ -141,11 +144,12 @@
    <Zoom>131</Zoom>
    <PageBreakZoom>100</PageBreakZoom>
    <Selected/>
+   <LeftColumnVisible>3</LeftColumnVisible>
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>6</ActiveRow>
-     <ActiveCol>4</ActiveCol>
+     <ActiveRow>10</ActiveRow>
+     <ActiveCol>8</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>

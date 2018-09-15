@@ -19,8 +19,8 @@ namespace UI.Model
             public uint growthCon { get; set; }
             public uint growthPow { get; set; }
             public uint growthDex { get; set; }
-            public string raceAbilityOne { get; set; }
-            public string raceAbilityTwo { get; set; }
+            public uint raceAbilityOne { get; set; }
+            public uint raceAbilityTwo { get; set; }
         }
         public Action<CreateCharacterPanel.CreateData> CreateCharacterCallback;
 

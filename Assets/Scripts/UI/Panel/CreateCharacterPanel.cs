@@ -79,11 +79,11 @@ public class CreateCharacterPanel : BaseUIForm
     {
         RocaName.text = m_CreateCharacterModel.createCharacterViewModels[index].raceName;
         RocaDes.text = m_CreateCharacterModel.createCharacterViewModels[index].raceDes;
-        //TODO
+        //TODO 技能 string => uint
         //InitDes.text = createCharacterModel.createCharacterViewModels[index].initValue;
         //GrowthDes.text = createCharacterModel.createCharacterViewModels[index].growthValue;
-        AbilityOneDes.text = m_CreateCharacterModel.createCharacterViewModels[index].raceAbilityOne;
-        AbilityTowDes.text = m_CreateCharacterModel.createCharacterViewModels[index].raceAbilityTwo;
+        //AbilityOneDes.text = m_CreateCharacterModel.createCharacterViewModels[index].raceAbilityOne;
+        //AbilityTowDes.text = m_CreateCharacterModel.createCharacterViewModels[index].raceAbilityTwo;
         InitDes.text = String.Format(m_InfoInitValueDes,
             m_CreateCharacterModel.createCharacterViewModels[index].initHP,
             m_CreateCharacterModel.createCharacterViewModels[index].initPow,

@@ -72,27 +72,29 @@
   <Names>
    <NamedRange ss:Name="_FilterDatabase" ss:RefersTo="=strings!#REF!" ss:Hidden="1"/>
   </Names>
-  <Table ss:ExpandedColumnCount="13" ss:ExpandedRowCount="3" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="15" ss:ExpandedRowCount="3" x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="0"
    ss:DefaultRowHeight="11.25">
    <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="54"/>
    <Column ss:StyleID="s62" ss:Width="60"/>
-   <Column ss:StyleID="s62" ss:Width="79.800000000000011"/>
-   <Column ss:StyleID="s62" ss:Width="60"/>
+   <Column ss:StyleID="s62" ss:Width="79.800000000000011" ss:Span="1"/>
+   <Column ss:Index="5" ss:StyleID="s62" ss:Width="60"/>
    <Column ss:StyleID="s62" ss:Width="64.8" ss:Span="2"/>
-   <Column ss:Index="8" ss:StyleID="s62" ss:Width="79.800000000000011"/>
-   <Column ss:StyleID="s62" ss:Width="84.600000000000009" ss:Span="2"/>
-   <Column ss:Index="12" ss:StyleID="s62" ss:Width="100.19999999999999" ss:Span="1"/>
+   <Column ss:Index="9" ss:StyleID="s62" ss:Width="79.800000000000011" ss:Span="1"/>
+   <Column ss:Index="11" ss:StyleID="s62" ss:Width="84.600000000000009" ss:Span="2"/>
+   <Column ss:Index="14" ss:StyleID="s62" ss:Width="100.19999999999999" ss:Span="1"/>
    <Row ss:AutoFitHeight="0" ss:Height="10.95" ss:StyleID="s63">
     <Cell ss:StyleID="s64"><Data ss:Type="String">id</Data></Cell>
     <Cell ss:StyleID="s64"><Data ss:Type="String">名称</Data><Comment ss:Author="罗冲"><ss:Data
        xmlns="http://www.w3.org/TR/REC-html40"><B><Font html:Size="9"
          html:Color="#000000">罗冲:</Font></B><Font html:Size="9" html:Color="#000000">&#10;其他表格中引用字符串时，写这个</Font></ss:Data></Comment></Cell>
     <Cell ss:StyleID="s64"><Data ss:Type="String">描述</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">初始魔法</Data></Cell>
     <Cell ss:StyleID="s64"><Data ss:Type="String">初始血量</Data></Cell>
     <Cell ss:StyleID="s64"><Data ss:Type="String">初始力量</Data></Cell>
     <Cell><Data ss:Type="String">初始敏捷</Data></Cell>
     <Cell><Data ss:Type="String">初始体质</Data></Cell>
+    <Cell><Data ss:Type="String">种族魔法成长</Data></Cell>
     <Cell><Data ss:Type="String">种族血量成长</Data></Cell>
     <Cell><Data ss:Type="String">种族力量成长</Data></Cell>
     <Cell><Data ss:Type="String">种族敏捷成长</Data></Cell>
@@ -104,18 +106,22 @@
     <Cell ss:StyleID="s65"><Data ss:Type="String">uint|ID</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">string|Name</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">string|Describe</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">byte|InitMP</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">byte|InitHP</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">byte|InitPow</Data></Cell>
     <Cell><Data ss:Type="String">byte|InitDex</Data></Cell>
     <Cell><Data ss:Type="String">byte|InitCon</Data></Cell>
+    <Cell><Data ss:Type="String">ushort|MPGrowth</Data></Cell>
     <Cell><Data ss:Type="String">ushort|HPGrowth</Data></Cell>
     <Cell><Data ss:Type="String">ushort|PowGrowth</Data></Cell>
     <Cell><Data ss:Type="String">ushort|DexGrowth</Data></Cell>
     <Cell><Data ss:Type="String">ushort|ConGrowth</Data></Cell>
-    <Cell><Data ss:Type="String">string|AbilityOneID</Data></Cell>
-    <Cell><Data ss:Type="String">string|AbilityTwoID</Data></Cell>
+    <Cell><Data ss:Type="String">uint|AbilityOneID</Data></Cell>
+    <Cell><Data ss:Type="String">uint|AbilityTwoID</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="10.95">
+    <Cell ss:StyleID="s65"><Data ss:Type="String">both</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">both</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">both</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">both</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="String">both</Data></Cell>
@@ -147,12 +153,11 @@
    <Zoom>131</Zoom>
    <PageBreakZoom>100</PageBreakZoom>
    <Selected/>
-   <LeftColumnVisible>3</LeftColumnVisible>
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveCol>12</ActiveCol>
-     <RangeSelection>C13</RangeSelection>
+     <ActiveRow>6</ActiveRow>
+     <ActiveCol>9</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
