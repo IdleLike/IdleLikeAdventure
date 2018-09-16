@@ -63,11 +63,11 @@ namespace Service
                 //魔法
                 hero.MaxMP = (int)(raceData.InitMP + GetGrowthValue(raceData.MPGrowth, hero.Level) + GetGrowthValue(careerData.MPGrowth, heroEntity.CareerLevel));
                 //力量
-                hero.Pow = (uint)(raceData.InitPow + GetGrowthValue(raceData.PowGrowth, hero.Level) + GetGrowthValue(careerData.PowGrowth, heroEntity.CareerLevel));
+                hero.Pow = raceData.InitPow + GetGrowthValue(raceData.PowGrowth, hero.Level) + GetGrowthValue(careerData.PowGrowth, heroEntity.CareerLevel);
                 //体质
-                hero.Con = (uint)(raceData.InitCon + GetGrowthValue(raceData.ConGrowth, hero.Level) + GetGrowthValue(careerData.ConGrowth, heroEntity.CareerLevel));
+                hero.Con = raceData.InitCon + GetGrowthValue(raceData.ConGrowth, hero.Level) + GetGrowthValue(careerData.ConGrowth, heroEntity.CareerLevel);
                 //敏捷
-                hero.Dex = (uint)(raceData.InitDex + GetGrowthValue(raceData.DexGrowth, hero.Level) + GetGrowthValue(careerData.DexGrowth, heroEntity.CareerLevel));            
+                hero.Dex = raceData.InitDex + GetGrowthValue(raceData.DexGrowth, hero.Level) + GetGrowthValue(careerData.DexGrowth, heroEntity.CareerLevel);            
             }
             return hero;
         }
